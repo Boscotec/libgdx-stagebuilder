@@ -98,8 +98,17 @@ public class ShadowLabel extends Label {
     @Override
     protected void setParent(Group parent) {
         super.setParent(parent);
-        int index = parent.getChildren().indexOf(this, true);
-        parent.addActorAt(index, shadowLabel);
+        if (parent != null) {
+            int index = parent.getChildren().indexOf(this, true);
+            parent.addActorAt(index, shadowLabel);
+        }
+    }
+
+    @Override
+    public boolean remove() {
+        boolean result = super.remove();
+        shadowLabel.remove();
+        return result;
     }
 
     @Override

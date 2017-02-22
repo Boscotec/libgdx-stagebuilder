@@ -18,4 +18,17 @@
 
     <label name="markupEnabled" x="20" y="100" fontName="default_font.fnt"
            text="[#FF0000]R[#00FF00]A[#0000FF]I[#F0F0F0]N[#CCC101]B[#991188]O[#6611BB]W" />
+
+
+    <image name="ninepatch"  x="10" y="120" width="250" height="80" frame="ninepatch_bg" atlas="common.atlas" ninepatch="true" np="5"/>
+
+    <label name="shadowLabel_1" x="20" y="190" fontName="default_font.fnt" shadow="true"
+           text="[#FF0000]R[#00FF00]A[#0000FF]I[#F0F0F0]N[#CCC101]B[#991188]O[#6611BB]W" />
+
+    <label name="shadowLabel_2" x="20" y="170" fontName="default_font.fnt" shadow="true"
+           text="This is a label with shadows" />
+
+    <label name="shadowLabel_3" x="20" y="150" fontName="default_font.fnt" shadow="true"
+           text="Shadow colors can be set" fontColor="FF0000" shadowColor="0000FF"/>
+
 </group>
