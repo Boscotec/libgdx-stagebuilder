@@ -60,9 +60,12 @@ class StageBuilderDSL(assets: AssetsInterface, resHelper: ResolutionHelper,
     fun test(): Group {
         return group(name = "root", x = 10f, width = 300f, height = 100f) {
             image (atlas = "common.atlas", frame = "androidlogo", width = 140f)
-            image (atlas = "common.atlas", frame = "androidlogo", x = 60f) {
-                setOrigin(Align.center)
-                rotateBy(40f)
+            
+            for (i in 0..110) {
+                image(atlas = "common.atlas", frame = "androidlogo", x = 60f + i * 5f) {
+                    setOrigin(Align.center)
+                    rotateBy(40f + i * 1.7f)
+                }
             }
 
             debug()
