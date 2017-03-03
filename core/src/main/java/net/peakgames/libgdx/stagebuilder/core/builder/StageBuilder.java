@@ -77,6 +77,12 @@ public class StageBuilder {
         return group;
     }
 
+    public Group buildGroup(GroupModel groupModel) {
+        Group group = new Group();
+        fillGroupActors(group, groupModel);
+        return group;
+    }
+
     public void fillGroupActors(Group group, GroupModel groupModel) {
         for (BaseModel model : groupModel.getChildren()) {
             ActorBuilder builder = builders.get(model.getClass());
