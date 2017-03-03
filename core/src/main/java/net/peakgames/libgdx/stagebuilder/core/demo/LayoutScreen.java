@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import net.peakgames.libgdx.stagebuilder.core.AbstractGame;
+import net.peakgames.libgdx.stagebuilder.core.util.StageBuilderDSL;
 
 public class LayoutScreen extends DemoScreen {
 
@@ -24,6 +25,11 @@ public class LayoutScreen extends DemoScreen {
         pos = game.getResolutionHelper().getPositionMultiplier();
 
         addVerticalGroupButtons();
+
+        StageBuilderDSL dsl = new StageBuilderDSL(
+                game.getAssetsInterface(), game.getResolutionHelper(), game.getLocalizationService());
+        
+        addActor(dsl.test());
     }
 
     private void addVerticalGroupButtons() {

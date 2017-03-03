@@ -28,12 +28,12 @@ public class StageBuilder {
     public static final String PORTRAIT_LAYOUT_FOLDER = "layout-port";
     public static final String DEFAULT_LAYOUT_FOLDER = "layout";
 
-    private Map<Class<? extends BaseModel>, ActorBuilder> builders = new HashMap<Class<? extends BaseModel>, ActorBuilder>();
-    private AssetsInterface assets;
-    private ResolutionHelper resolutionHelper;
-    private LocalizationService localizationService;
-    private ExecutorService groupBuildingPool;
-    private StageBuilderListener stageBuilderListener;
+    protected Map<Class<? extends BaseModel>, ActorBuilder> builders = new HashMap<Class<? extends BaseModel>, ActorBuilder>();
+    protected AssetsInterface assets;
+    protected ResolutionHelper resolutionHelper;
+    protected LocalizationService localizationService;
+    protected ExecutorService groupBuildingPool;
+    protected StageBuilderListener stageBuilderListener;
 
     public StageBuilder(AssetsInterface assets, ResolutionHelper resolutionHelper, LocalizationService localizationService) {
         this.assets = assets;
