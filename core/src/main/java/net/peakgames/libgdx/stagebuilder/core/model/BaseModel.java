@@ -1,9 +1,19 @@
 package net.peakgames.libgdx.stagebuilder.core.model;
 
 
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
 import java.util.Locale;
 
 public abstract class BaseModel {
+
+    public ClickListener getClickListener() {
+        return clickListener;
+    }
+
+    public void setClickListener(ClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
 
     public enum ScreenAlign {
         TOP, BOTTOM, LEFT, RIGHT
@@ -54,6 +64,7 @@ public abstract class BaseModel {
     private Touchable touchable = Touchable.ENABLED;
     private boolean debugEnabled;
 
+    private ClickListener clickListener;
 
     @Override
     public String toString() {

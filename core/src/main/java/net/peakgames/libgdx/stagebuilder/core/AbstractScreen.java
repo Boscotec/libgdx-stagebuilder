@@ -34,6 +34,7 @@ public abstract class AbstractScreen implements Screen {
     private long lastScreenRefreshCheckTimestamp = System.currentTimeMillis();
     private String layoutFileChecksum;
     private boolean changesOrientation = false;
+    private boolean initiallyEmptyStage = false;
     private float fadeInDuration = Float.NEGATIVE_INFINITY;
 
     /**
@@ -43,11 +44,16 @@ public abstract class AbstractScreen implements Screen {
 	private StageBuilder stageBuilder;
 
     public AbstractScreen(AbstractGame game) {
-        this(game, false);
+        this(game, false, false);
     }
 
     public AbstractScreen(AbstractGame game, boolean changesOrientation) {
+        this(game, changesOrientation, false);
+    }
+
+    public AbstractScreen(AbstractGame game, boolean changesOrientation, boolean initiallyEmptyStage) {
         this.changesOrientation = changesOrientation;
+        this.initiallyEmptyStage = initiallyEmptyStage;
         if (game == null) {
             return;
         }
@@ -57,7 +63,7 @@ public abstract class AbstractScreen implements Screen {
 
         this.stageBuilder = new StageBuilder(game.getAssetsInterface(), game.getResolutionHelper(), game.getLocalizationService());
 
-        createStage();
+        createStage(initiallyEmptyStage);
 
         this.assetManager = game.getAssetsInterface().getAssetMAnager();
     }
@@ -74,8 +80,13 @@ public abstract class AbstractScreen implements Screen {
         return fadeInDuration > 0;
     }
 
-    private void createStage() {
-        stage = stageBuilder.build(getFileName(), getViewport());
+    private void createStage(boolean initiallyEmptyStage) {
+        if (initiallyEmptyStage) {
+            stage = new Stage(getViewport());
+            stage.addActor(stageBuilder.createRootGroup());
+        } else {
+            stage = stageBuilder.build(getFileName(), getViewport());
+        }
         Gdx.input.setInputProcessor(this.stage);
     }
 
@@ -259,13 +270,16 @@ public abstract class AbstractScreen implements Screen {
     }
 
     private String calculateLayoutFileChecksum() {
+        if (initiallyEmptyStage) {
+            return "NA";
+        }
 		FileHandle fileHandle = stageBuilder.getLayoutFile(getFileName());
 		return Utils.calculateMD5(fileHandle.read());
     }
 
     protected void reloadStage() {
         Gdx.app.log(TAG, "Reloading stage.");
-        createStage();
+        createStage(this.initiallyEmptyStage);
         onStageReloaded();
     }
 

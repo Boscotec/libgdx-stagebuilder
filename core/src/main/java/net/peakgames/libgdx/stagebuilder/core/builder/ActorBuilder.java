@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import net.peakgames.libgdx.stagebuilder.core.assets.AssetsInterface;
@@ -118,7 +119,12 @@ public abstract class ActorBuilder {
         }
         
         setTouchable(actor, model);
-        
+
+        ClickListener clickListener = model.getClickListener();
+        if (clickListener != null) {
+            actor.addListener(clickListener);
+        }
+
         actor.setDebug(model.isDebugEnabled());
     }
 
