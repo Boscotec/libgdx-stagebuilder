@@ -8,18 +8,14 @@
 		<version>3.22.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>stagebuilder-desktop</artifactId>
+	<artifactId>stagebuilder-extensions-demo</artifactId>
 	<packaging>jar</packaging>
-	<name>StageBuilderTest desktop</name>
-
-	<properties>
-		<mainClass>net.peakgames.libgdx.stagebuilder.java.StageBuilderTestDesktop</mainClass>
-	</properties>
+	<name>StageBuilder Extensions Demo</name>
 
 	<dependencies>
 		<dependency>
 			<groupId>net.peakgames.libgdx</groupId>
-			<artifactId>stagebuilder-core</artifactId>
+			<artifactId>stagebuilder-extensions</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
@@ -41,6 +37,12 @@
 			<version>${gdx.version}</version>
 			<classifier>natives-desktop</classifier>
 		</dependency>
+
+		<dependency>
+			<groupId>org.jetbrains.kotlin</groupId>
+			<artifactId>kotlin-stdlib</artifactId>
+			<version>${kotlin.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -49,9 +51,7 @@
 				<directory>assets</directory>
 			</resource>
 		</resources>
-
 		<plugins>
-			<!-- this run the game when you invoke: mvn integration-test -Pdesktop -->
 			<plugin>
 				<groupId>com.googlecode.mavennatives</groupId>
 				<artifactId>maven-nativedependencies-plugin</artifactId>
@@ -65,46 +65,56 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.6</version>
+				<artifactId>kotlin-maven-plugin</artifactId>
+				<groupId>org.jetbrains.kotlin</groupId>
+				<version>${kotlin.version}</version>
 				<executions>
 					<execution>
-						<phase>integration-test</phase>
+						<id>compile</id>
+						<goals> <goal>compile</goal> </goals>
 						<configuration>
-							<target>
-								<java fork="true" classname="${mainClass}" classpathref="maven.test.classpath">
-									<sysproperty key="java.library.path" value="target/natives"/>
-								</java>
-							</target>
+							<sourceDirs>
+								<sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+								<sourceDir>${project.basedir}/src/main/java</sourceDir>
+							</sourceDirs>
 						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
+					</execution>
+					<execution>
+						<id>test-compile</id>
+						<goals> <goal>test-compile</goal> </goals>
+						<configuration>
+							<sourceDirs>
+								<sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+								<sourceDir>${project.basedir}/src/test/java</sourceDir>
+							</sourceDirs>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-
-			<!-- this builds a totally standalone jar file when you invoke: mvn package -Pdesktop -->
 			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<manifest>
-							<mainClass>${mainClass}</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
 				<executions>
+					<!-- Replacing default-compile as it is treated specially by maven -->
 					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
+						<id>default-compile</id>
+						<phase>none</phase>
+					</execution>
+					<!-- Replacing default-testCompile as it is treated specially by maven -->
+					<execution>
+						<id>default-testCompile</id>
+						<phase>none</phase>
+					</execution>
+					<execution>
+						<id>java-compile</id>
+						<phase>compile</phase>
+						<goals> <goal>compile</goal> </goals>
+					</execution>
+					<execution>
+						<id>java-test-compile</id>
+						<phase>test-compile</phase>
+						<goals> <goal>testCompile</goal> </goals>
 					</execution>
 				</executions>
 			</plugin>

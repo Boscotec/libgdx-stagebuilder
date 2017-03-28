@@ -1,4 +1,4 @@
-#StageBuilder
+# StageBuilder
 
 This is a library project for building LibGDX stages (screens) from xml files.
 
@@ -14,8 +14,30 @@ This is a library project for building LibGDX stages (screens) from xml files.
 10. [Demo Application](https://github.com/peakgames/libgdx-stagebuilder/wiki/Demo-Application)
 11. [Obtaining](https://github.com/peakgames/libgdx-stagebuilder/wiki/Obtaining)
 12. [Games Using StageBuilder](https://github.com/peakgames/libgdx-stagebuilder/wiki/Games-Using-StageBuilder)
+13. [Kotlin Type-Safe Builder (DSL)](https://github.com/peakgames/libgdx-stagebuilder/wiki/Kotlin-Type-Safe-Builder)
 
-#Include via Jitpack
+## Kotlin Type-Safe Builders
+
+If you are using [Kotlin](https://kotlinlang.org/) you can benefit type-safe builders (DSL) for creating screens and Scene2d actors.
+To enable StageBuilder DSL you should add *stagebuilder-extensions* dependency
+
+Gradle
+```
+compile 'com.github.peakgames.libgdx-stagebuilder:stagebuilder-extensions:$stagebuilder_version'
+```
+
+Maven
+```
+<dependency>
+    <groupId>net.peakgames.libgdx</groupId>
+    <artifactId>stagebuilder-extensions</artifactId>
+    <version>$stagebuilder_version</version>
+</dependency>
+```
+
+
+
+## Include via Jitpack
 
 [![](https://jitpack.io/v/peakgames/libgdx-stagebuilder.svg)](https://jitpack.io/#peakgames/libgdx-stagebuilder)
 

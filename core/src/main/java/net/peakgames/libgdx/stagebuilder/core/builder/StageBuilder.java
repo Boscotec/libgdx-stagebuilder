@@ -77,6 +77,10 @@ public class StageBuilder {
         return group;
     }
 
+    public Group buildGroup(GroupModel groupModel) {
+        return (Group) builders.get(GroupModel.class).build(groupModel);
+    }
+
     public void fillGroupActors(Group group, GroupModel groupModel) {
         for (BaseModel model : groupModel.getChildren()) {
             ActorBuilder builder = builders.get(model.getClass());
@@ -170,16 +174,21 @@ public class StageBuilder {
             List<BaseModel> modelList = xmlModelBuilder.buildModels(getLayoutFile(fileName));
             GroupModel groupModel = (GroupModel) modelList.get(0);
             Stage stage = new Stage(viewport);
-            Group rootGroup = new Group();
+            Group rootGroup = createRootGroup();
             addActorsToStage(rootGroup, groupModel.getChildren());
-            rootGroup.setName(ROOT_GROUP_NAME);
-            rootGroup.setX(resolutionHelper.getGameAreaPosition().x);
-            rootGroup.setY(resolutionHelper.getGameAreaPosition().y);
             stage.addActor(rootGroup);
             return stage;
         } catch (Exception e) {
             throw new RuntimeException("Failed to build stage.", e);
         }
+    }
+
+    public Group createRootGroup() {
+        Group rootGroup = new Group();
+        rootGroup.setName(ROOT_GROUP_NAME);
+        rootGroup.setX(resolutionHelper.getGameAreaPosition().x);
+        rootGroup.setY(resolutionHelper.getGameAreaPosition().y);
+        return rootGroup;
     }
 
     private void addActorsToStage(Group rootGroup, List<BaseModel> models) {
