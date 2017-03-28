@@ -44,6 +44,18 @@ inline fun ButtonModel.source(atlas: String, frameUp: String, frameDown: String)
     this.frameDown = frameDown
 }
 
+inline fun TextButtonModel.font(fontName:String, fontColor:String? = null, fontScale:Float = 1f) {
+    this.fontName = fontName
+    this.fontColor = fontColor
+    this.fontScale = fontScale
+}
+
+inline fun LabelModel.font(fontName:String, fontColor:String? = null, fontScale:Float = 1f) {
+    this.fontName = fontName
+    this.fontColor = fontColor
+    this.fontScale = fontScale
+}
+
 inline fun ImageModel.source(atlas: String, frame: String) {
     this.atlasName = atlas
     this.frame = frame

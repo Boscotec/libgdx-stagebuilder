@@ -28,7 +28,7 @@ class DemoScreen(game: AbstractGame) : AbstractScreen(game) {
                 size(180, 40)
                 source("UI.atlas", "green_button08", "green_button09")
                 setNinePatch(5)
-                fontName = "future.fnt"
+                font("future.fnt")
                 onClick {
                     val model = DemoPopup().createPopup("demo_popup", {
                         val popup = root.findActor<Group>("demo_popup")

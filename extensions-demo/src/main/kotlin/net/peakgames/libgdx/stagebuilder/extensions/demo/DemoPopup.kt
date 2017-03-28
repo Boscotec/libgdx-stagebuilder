@@ -31,9 +31,8 @@ class DemoPopup {
                 position(10, 300)
                 label {
                     size(150, 30)
-                    fontName = "future.fnt"
                     text = "Name"
-                    color = "929292"
+                    font("future.fnt", "929292")
                 }
                 textfield {
                     position(80, 0)
@@ -57,12 +56,10 @@ class DemoPopup {
                     size(50, 50)
                     position(10, 10)
                     text = "COOL?"
+                    font("future.fnt", "929292")
                     atlasName = "UI.atlas"
                     frameCheckboxOn = "blue_boxCheckmark"
                     frameCheckboxOff = "blue_boxCross"
-                    fontName = "future.fnt"
-                    fontColor = "929292"
-                    fontScale = 1f
                 }
             }
 
@@ -82,14 +79,13 @@ class DemoPopup {
                 }
                 textbutton {
                     text = "ACCEPT"
+                    font("future.fnt")
                     atlasName = "UI.atlas"
                     position(50, 0)
                     size(120, 40)
                     frameUp = "green_button08"
                     frameDown = "green_button09"
                     setNinePatch(5)
-                    fontName = "future.fnt"
-                    fontScale = 1f
                     onClick {
                         println("Accepted!")
                     }
