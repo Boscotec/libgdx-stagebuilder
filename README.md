@@ -14,7 +14,7 @@ This is a library project for building LibGDX stages (screens) from xml files.
 10. [Demo Application](https://github.com/peakgames/libgdx-stagebuilder/wiki/Demo-Application)
 11. [Obtaining](https://github.com/peakgames/libgdx-stagebuilder/wiki/Obtaining)
 12. [Games Using StageBuilder](https://github.com/peakgames/libgdx-stagebuilder/wiki/Games-Using-StageBuilder)
-13. [Kotlin Type-Safe Builder (DSL)](https://github.com/peakgames/libgdx-stagebuilder/wiki/Kotlin-Type-Safe-Builder)
+13. [Kotlin Type-Safe Builders (DSL)](https://github.com/peakgames/libgdx-stagebuilder/wiki/Kotlin-Type-Safe-Builder)
 
 ## Kotlin Type-Safe Builders
 
