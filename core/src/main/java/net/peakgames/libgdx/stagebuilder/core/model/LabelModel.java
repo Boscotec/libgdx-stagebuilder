@@ -11,11 +11,12 @@ public class LabelModel extends BaseModel {
      * combination of "left, right, top, bottom, center
      */
     private String alignment;
+    
     private boolean shadow;
-    /**
-     * Default shadow color is BLACK
-     */
-    private String shadowColor;
+    private float shadowX;
+    private float shadowY;
+    private String shadowColor; //Default shadow color is BLACK
+    
     private float labelScale;
 
     public String getText() {
@@ -72,6 +73,22 @@ public class LabelModel extends BaseModel {
 
     public void setShadowColor(String shadowColor) {
         this.shadowColor = shadowColor;
+    }
+
+    public float getShadowX() {
+        return shadowX;
+    }
+
+    public void setShadowX(float shadowX) {
+        this.shadowX = shadowX;
+    }
+
+    public float getShadowY() {
+        return shadowY;
+    }
+
+    public void setShadowY(float shadowY) {
+        this.shadowY = shadowY;
     }
 
     public float getFontScale() {

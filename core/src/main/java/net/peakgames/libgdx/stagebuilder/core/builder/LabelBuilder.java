@@ -34,8 +34,10 @@ public class LabelBuilder extends ActorBuilder {
         setBasicProperties(model, label);
         setAlignmentAndScaling(labelModel, label);
 
-        if(((LabelModel) model).isShadow()) {
-            ShadowLabel shadowLabel = new ShadowLabel(initialText, style, ((LabelModel) model).getShadowColor(), resolutionHelper.getPositionMultiplier());
+        if (labelModel.isShadow()) {
+            ShadowLabel shadowLabel = new ShadowLabel(
+                    initialText, style, labelModel.getShadowColor(), resolutionHelper.getPositionMultiplier());
+            shadowLabel.setShadowOffsets(labelModel.getShadowX(), labelModel.getShadowY());
             setBasicProperties(model, shadowLabel);
             shadowLabel.setName(label.getName());
             setAlignmentAndScaling(labelModel, shadowLabel);

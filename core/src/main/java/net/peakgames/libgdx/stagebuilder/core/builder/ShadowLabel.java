@@ -8,9 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 public class ShadowLabel extends Label {
 
     private Label shadowLabel;
-    private static final float shiftX = 2;
-    private static final float shiftY = 2;
-    private static float resolutionMult = 1;
+    public static final float DEFAULT_SHIFT_X = 2;
+    public static final float DEFAULT_SHIFT_Y = 2;
+    
+    private float shiftX = DEFAULT_SHIFT_X;
+    private float shiftY = DEFAULT_SHIFT_Y;
+    private float resolutionMult = 1;
 
     public ShadowLabel(CharSequence text, LabelStyle labelStyle, String shadowColorName) {
         this(text, labelStyle, Color.valueOf(shadowColorName));
@@ -26,6 +29,12 @@ public class ShadowLabel extends Label {
     public ShadowLabel(CharSequence text, LabelStyle labelStyle, String shadowColorName, float resolutionMult) {
         this(text, labelStyle, Color.valueOf(shadowColorName));
         this.resolutionMult = resolutionMult;
+        repositionShadowLabel();
+    }
+    
+    public void setShadowOffsets(float x, float y) {
+        shiftX = x;
+        shiftY = y;
         repositionShadowLabel();
     }
 
@@ -76,15 +85,19 @@ public class ShadowLabel extends Label {
     }
 
     @Override
-    public void setPosition(float x, float y) {
-        super.setPosition(x, y);
-        shadowLabel.setPosition(x + (shiftX * resolutionMult), y - (shiftY * resolutionMult));
+    protected void positionChanged() {
+        super.positionChanged();
+        if (shadowLabel != null) {
+            shadowLabel.setPosition(getX() + (shiftX * resolutionMult), getY() - (shiftY * resolutionMult));
+        }
     }
 
     @Override
-    public void setBounds(float x, float y, float width, float height) {
-        super.setBounds(x, y, width, height);
-        shadowLabel.setBounds(x + (shiftX * resolutionMult), y - (shiftY * resolutionMult), width, height);
+    protected void sizeChanged() {
+        super.sizeChanged();
+        if (shadowLabel != null) {
+            shadowLabel.setSize(getWidth(), getHeight());
+        }
     }
 
     public Label getShadowLabel() {
@@ -118,18 +131,6 @@ public class ShadowLabel extends Label {
     }
 
     @Override
-    public void setX(float x) {
-        super.setX(x);
-        shadowLabel.setX(x + (shiftX * resolutionMult));
-    }
-
-    @Override
-    public void setY(float y) {
-        super.setY(y);
-        shadowLabel.setY(y - (shiftY * resolutionMult));
-    }
-
-    @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         shadowLabel.setVisible(visible);
@@ -139,26 +140,6 @@ public class ShadowLabel extends Label {
     public void setWrap(boolean wrap) {
         super.setWrap(wrap);
         shadowLabel.setWrap(wrap);
-    }
-
-    @Override
-    public void setSize(float width, float height) {
-        super.setSize(width, height);
-        if(shadowLabel != null){
-            shadowLabel.setSize(width, height);
-        }
-    }
-
-    @Override
-    public void setWidth(float width) {
-        super.setWidth(width);
-        shadowLabel.setWidth(width);
-    }
-
-    @Override
-    public void setHeight(float height) {
-        super.setHeight(height);
-        shadowLabel.setHeight(height);
     }
 
     @Override

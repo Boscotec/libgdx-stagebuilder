@@ -1,6 +1,7 @@
 package net.peakgames.libgdx.stagebuilder.core.xml;
 
 import com.badlogic.gdx.files.FileHandle;
+import net.peakgames.libgdx.stagebuilder.core.builder.ShadowLabel;
 import net.peakgames.libgdx.stagebuilder.core.model.*;
 import org.xmlpull.v1.XmlPullParser;
 
@@ -216,6 +217,8 @@ public class XmlModelBuilder {
         label.setWrap(XmlHelper.readBooleanAttribute(xmlParser, "wrap", false));
         label.setAlignment(XmlHelper.readStringAttribute(xmlParser, "align"));
         label.setShadow(XmlHelper.readBooleanAttribute(xmlParser, "shadow", false));
+        label.setShadowX(XmlHelper.readFloatAttribute(xmlParser, "shadowX", ShadowLabel.DEFAULT_SHIFT_X));
+        label.setShadowY(XmlHelper.readFloatAttribute(xmlParser, "shadowY", ShadowLabel.DEFAULT_SHIFT_Y));
         label.setShadowColor(XmlHelper.readStringAttribute(xmlParser, "shadowColor", "000000"));
         label.setFontScale(XmlHelper.readFloatAttribute(xmlParser, "fontScale", 1f));
         label.setFontAutoScale(XmlHelper.readBooleanAttribute(xmlParser, "fontAutoScale", false));
