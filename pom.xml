@@ -9,7 +9,7 @@
 	<name>StageBuilder Parent</name>
 
 	<properties>
-		<release.version>3.22.0</release.version>
+		<release.version>3.23.0-SNAPSHOT</release.version>
 		<gdx.version>1.6.5</gdx.version>
 		<android.version>4.1.1.4</android.version>
 		<android.maven.version>3.8.1</android.maven.version>
