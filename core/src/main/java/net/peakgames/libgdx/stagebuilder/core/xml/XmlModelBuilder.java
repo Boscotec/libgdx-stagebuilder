@@ -1,6 +1,7 @@
 package net.peakgames.libgdx.stagebuilder.core.xml;
 
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Align;
 import net.peakgames.libgdx.stagebuilder.core.builder.ShadowLabel;
 import net.peakgames.libgdx.stagebuilder.core.model.*;
 import org.xmlpull.v1.XmlPullParser;
@@ -450,6 +451,13 @@ public class XmlModelBuilder {
         model.setScreenPaddingRight(XmlHelper.readFloatAttribute(xmlParser, "screenPaddingRight", 0.0f));
         model.setTouchable(XmlHelper.readStringAttribute(xmlParser, "touchable", "enabled"));
         model.setDebugEnabled(XmlHelper.readBooleanAttribute(xmlParser, "debug", false));
+        
+        model.setToLeftOf(XmlHelper.readStringAttribute(xmlParser, "toLeftOf", null));
+        model.setToRightOf(XmlHelper.readStringAttribute(xmlParser, "toRightOf", null));
+        model.setToAboveOf(XmlHelper.readStringAttribute(xmlParser, "toAboveOf", null));
+        model.setToBelowOf(XmlHelper.readStringAttribute(xmlParser, "toBelowOf", null));
+        
+        model.setAlignInParent(XmlHelper.readAlignmentAttribute(xmlParser, "alignInParent", Align.bottomLeft));
     }
 
 }
