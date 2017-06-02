@@ -54,6 +54,13 @@
 	
 		<image y="325" width="1" height="30" frame="ninepatch_bg" atlas="common.atlas" np="5" tintColor="880033" 
 			   toRightOf="alignLeft" toLeftOf="alignRight"/>
+		
+		<group y="325" width="1" height="30" toRightOf="alignLeft" toLeftOf="alignRight" debug="true">
+			<group name="middle" width="50" height="15" alignInParent="center|bottom" debug="true"/>
+			
+			<group alignInParent="center|left" toLeftOf="middle" width="1" height="20" debug="true"/>
+			<group alignInParent="center|right" toRightOf="middle" width="1" height="20" debug="true"/>
+		</group>
 	</group>
 	
 	<group width="50" height="50" x="10" y="120" debug="true">
@@ -62,5 +69,13 @@
 
 	<group width="50" height="50" x="70" y="120" debug="true">
 		<image width="10" height="10" frame="ninepatch_bg" atlas="common.atlas" np="5" alignInParent="center|left"/>
+	</group>
+
+	<group width="50" height="50" x="130" y="120" debug="true">
+		<image width="10" height="10" frame="ninepatch_bg" atlas="common.atlas" np="5" alignInParent="bottom|right"/>
+	</group>
+
+	<group width="50" height="50" x="190" y="120" debug="true">
+		<image width="10" height="10" frame="ninepatch_bg" atlas="common.atlas" np="5" alignInParent="top|center"/>
 	</group>
 </group>

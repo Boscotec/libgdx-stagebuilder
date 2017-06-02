@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -65,7 +66,7 @@ public abstract class ActorBuilder {
         return calculateAlignment(alignmentString, Align.left);
     }
 
-    public abstract Actor build(BaseModel model);
+    public abstract Actor build(BaseModel model, Group parent);
 
     /**
      * Width & height properties are updated by normalizeModelSize method.

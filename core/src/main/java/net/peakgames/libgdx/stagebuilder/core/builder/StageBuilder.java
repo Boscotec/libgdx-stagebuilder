@@ -78,13 +78,13 @@ public class StageBuilder {
     }
 
     public Group buildGroup(GroupModel groupModel) {
-        return (Group) builders.get(GroupModel.class).build(groupModel);
+        return (Group) builders.get(GroupModel.class).build(groupModel, null);
     }
 
     public void fillGroupActors(Group group, GroupModel groupModel) {
         for (BaseModel model : groupModel.getChildren()) {
             ActorBuilder builder = builders.get(model.getClass());
-            group.addActor(builder.build(model));
+            group.addActor(builder.build(model, group));
         }
     }
 
@@ -195,7 +195,7 @@ public class StageBuilder {
         for (BaseModel model : models) {
             try {
                 ActorBuilder builder = builders.get(model.getClass());
-                rootGroup.addActor(builder.build(model));
+                rootGroup.addActor(builder.build(model, rootGroup));
             } catch (Exception e) {
                 throw new RuntimeException("Failed to build stage on actor: " + model.getName(), e);
             }

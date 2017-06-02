@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -30,7 +31,7 @@ public class SelectBoxBuilder extends ActorBuilder {
     }
 
     @Override
-    public Actor build(BaseModel model) {
+    public Actor build(BaseModel model, Group parent) {
         float positionMultiplier = resolutionHelper.getPositionMultiplier();
         DEFAULT_PADDING_RIGHT = (int) (DEFAULT_PADDING_RIGHT * positionMultiplier);
         DEFAULT_PADDING_LEFT = (int) (DEFAULT_PADDING_LEFT * positionMultiplier);

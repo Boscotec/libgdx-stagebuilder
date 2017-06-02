@@ -21,7 +21,7 @@ public class ExternalGroupModelBuilder extends ActorBuilder {
     }
 
     @Override
-    public Actor build(BaseModel model) {
+    public Actor build(BaseModel model, Group parent) {
         ExternalGroupModel externalGroupModel = (ExternalGroupModel) model;
         try {
             String pathName = externalGroupModel.getPathName();

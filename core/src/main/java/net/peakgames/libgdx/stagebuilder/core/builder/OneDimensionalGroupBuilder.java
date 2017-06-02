@@ -1,6 +1,7 @@
 package net.peakgames.libgdx.stagebuilder.core.builder;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import net.peakgames.libgdx.stagebuilder.core.assets.AssetsInterface;
 import net.peakgames.libgdx.stagebuilder.core.assets.ResolutionHelper;
 import net.peakgames.libgdx.stagebuilder.core.model.BaseModel;
@@ -24,7 +25,7 @@ public class OneDimensionalGroupBuilder extends ActorBuilder {
     }
 
     @Override
-    public Actor build(BaseModel model) {
+    public Actor build(BaseModel model, Group parent) {
         OneDimensionGroupModel groupModel = (OneDimensionGroupModel) model;
         groupModel.normalize(resolutionHelper);
         
@@ -56,7 +57,7 @@ public class OneDimensionalGroupBuilder extends ActorBuilder {
         List<BaseModel> children = groupModel.getChildren();
 
         for(BaseModel childModel: children) {
-            Actor actor = builders.get(childModel.getClass()).build(childModel);
+            Actor actor = builders.get(childModel.getClass()).build(childModel, group.getGroup());
             group.getGroup().addActor(actor);
         }
         
