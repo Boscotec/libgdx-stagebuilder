@@ -22,20 +22,35 @@ public class ViewBuilder extends ActorBuilder {
 
 	@Override
 	public Actor build(BaseModel model, Group parent) {
+		ViewModel viewModel = (ViewModel) model;
+		
+		Class<?> klass;
 		try {
-			ViewModel viewModel = (ViewModel) model;
-			Class<?> klass = Class.forName(viewModel.getKlass());
-			CustomView view = (CustomView) klass.newInstance();
+			klass = Class.forName(viewModel.getKlass());
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Could not find class for '" + viewModel.getKlass() +"'", e);
+		}
 
-			setBasicProperties(model, view);
-			Group children = builder.buildGroup(viewModel.getLayout());
+		CustomView view;
+		try {
+			view = (CustomView) klass.newInstance();
+		} catch (InstantiationException e) {
+			throw new RuntimeException("Could not instantiate '" + viewModel.getKlass() +"'", e);
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException("Provided class for view has no public parameterless constructor: '" + viewModel.getKlass() +"'", e);
+		}
+
+		setBasicProperties(model, view);
+		
+		Group children;
+		try {
+			children = builder.buildGroup(viewModel.getLayout());
 			view.addActor(children);
 			view.build(assets, resolutionHelper, localizationService);
-
-			return (Actor) view;
 		} catch (Exception e) {
-			Gdx.app.log("GdxWidgets", "Failed to create custom view.", e);
-			return null;
+			throw new RuntimeException("Could not build given layout: " + viewModel.getLayout());
 		}
+
+		return (Actor) view;
 	}
 }
