@@ -68,6 +68,8 @@ public class StageBuilder {
         builders.put(CheckBoxModel.class, new CheckBoxBuilder( assets, resolutionHelper, localizationService));
         builders.put(ToggleWidgetModel.class, new ToggleWidgetBuilder( assets, resolutionHelper, localizationService));
         builders.put(OneDimensionGroupModel.class, new OneDimensionalGroupBuilder(builders, assets, resolutionHelper, localizationService));
+        
+        builders.put(ViewModel.class, new ViewBuilder(this, assets, resolutionHelper, localizationService));
     }
 
     public Group buildGroup(String fileName) throws Exception {

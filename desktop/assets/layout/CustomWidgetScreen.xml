@@ -40,4 +40,6 @@
         y="240"
     />
     
+    <view class="net.peakgames.libgdx.stagebuilder.core.demo.widgets.DemoCustomView" rotation="10"
+          layout="demoCustomViews/demoCustomView.xml" x="20" y="70" width="320" height="400" debug="true"/>
 </group>
