@@ -3,6 +3,7 @@ package net.peakgames.libgdx.stagebuilder.core.builder;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import net.peakgames.libgdx.stagebuilder.core.ICustomWidget;
 import net.peakgames.libgdx.stagebuilder.core.assets.AssetsInterface;
 import net.peakgames.libgdx.stagebuilder.core.assets.ResolutionHelper;
 import net.peakgames.libgdx.stagebuilder.core.model.BaseModel;
@@ -15,7 +16,8 @@ import java.util.Map.Entry;
 
 public class CustomWidgetBuilder extends ActorBuilder {
 
-    public CustomWidgetBuilder(AssetsInterface assets, ResolutionHelper resolutionHelper, LocalizationService localizationService) {
+    public CustomWidgetBuilder(AssetsInterface assets, ResolutionHelper resolutionHelper, 
+                               LocalizationService localizationService) {
         super(assets, resolutionHelper, localizationService);
     }
 
@@ -25,18 +27,9 @@ public class CustomWidgetBuilder extends ActorBuilder {
             CustomWidgetModel customWidgetModel = (CustomWidgetModel) model;
             localizeAttributes(customWidgetModel);
             Class<?> klass = Class.forName(customWidgetModel.getKlass());
-            Object customWidget = klass.newInstance();
-            Class<?>[] buildMethodParameterTypes = {
-                    Map.class,
-                    AssetsInterface.class,
-                    ResolutionHelper.class,
-                    LocalizationService.class
-            };
-
-            Method buildMethod = klass.getMethod("build", buildMethodParameterTypes);
+            ICustomWidget customWidget = (ICustomWidget) klass.newInstance();
             setBasicProperties(model, (Actor) customWidget);
-            buildMethod.invoke(
-                    customWidget,
+            customWidget.build(
                     customWidgetModel.getAttributeMap(),
                     this.assets,
                     this.resolutionHelper,
