@@ -52,15 +52,15 @@ public class ExternalGroupModelBuilder extends ActorBuilder {
         Vector2 screenPos;
         if (model.getScreenAlignmentSupport() == null) {
             screenPos = calculateScreenPosition(model.getScreenAlignment(), model);
-        }
-        else {
+        } else {
             screenPos = calculateScreenPosition(model.getScreenAlignment(), model.getScreenAlignmentSupport(), model);
         }
 
-        if(screenPos != null){
+        if (screenPos != null) {
             group.setPosition(screenPos.x, screenPos.y);
-        }else{
-            group.setPosition(model.getX() * resolutionHelper.getPositionMultiplier(), model.getY() * resolutionHelper.getPositionMultiplier());
+        } else {
+            float positionMultiplier = resolutionHelper.getPositionMultiplier();
+            group.setPosition(model.getX() * positionMultiplier, model.getY() * positionMultiplier);
         }
 
         setScaleProperty(model, group);

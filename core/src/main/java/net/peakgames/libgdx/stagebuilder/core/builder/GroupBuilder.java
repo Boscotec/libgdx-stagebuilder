@@ -31,13 +31,15 @@ public class GroupBuilder extends ActorBuilder {
         setBasicProperties(model, group);
         List<BaseModel> children = groupModel.getChildren();
         Collections.sort(children, new ZIndexComparator());
+            
+        if (parent != null) setSelfRelativePositions(group, groupModel, parent);    
+        
         for (BaseModel child : children) {
             Actor actor = builders.get(child.getClass()).build(child, group);
             group.addActor(actor);
         }
         
         //if (groupModel.isRelativeEnabled())
-            if (parent != null) setSelfRelativePositions(group, groupModel, parent);    
             setChildRelativePositions(group, children);
         
         return group;
