@@ -66,60 +66,76 @@ public class GroupBuilder extends ActorBuilder {
         Actor toBelow = GdxUtils.findActorSafe(parent, childModel.getToBelowOf());
         
         if (toLeft != null && toRight != null) {
-            child.setWidth(Math.abs(toLeft.getX() - (toRight.getX() + toRight.getWidth())));
+            child.setWidth(Math.abs(getAnchoredX(toLeft) - (getAnchoredX(toRight) + getScaledWidth(toRight))));
         } else if (toLeft != null) {
-            child.setX(toLeft.getX() - child.getWidth());
+            child.setX(getAnchoredX(toLeft) - getScaledWidth(child));
         }
 
         if (toRight != null) {
-            child.setX(toRight.getX() + toRight.getWidth());
+            child.setX(getAnchoredX(toRight) + getScaledWidth(toRight));
         }
 
         if (toBelow != null && toAbove != null) {
-            child.setHeight(Math.abs(toBelow.getY() - (toAbove.getY() + toAbove.getHeight())));
+            child.setHeight(Math.abs(getAnchoredY(toBelow) - (getAnchoredY(toAbove) + getScaledHeight(toAbove))));
         } else if (toBelow != null) {
-            child.setY(toBelow.getY() - child.getHeight());
+            child.setY(getAnchoredY(toBelow) - getScaledHeight(child));
         }
 
         if (toAbove != null) {
-            child.setY(toAbove.getY() + toAbove.getHeight());
+            child.setY(getAnchoredY(toAbove) + getScaledHeight(toAbove));
         }
 
-        float parentW = parent.getWidth();
-        float parentH = parent.getHeight();
+        float parentW = getScaledWidth(parent);
+        float parentH = getScaledHeight(parent);
         int alignInParent = childModel.getAlignInParent();
         if (alignInParent == Align.bottomLeft) return;
         if ((alignInParent & Align.center) == Align.center) {
-            child.setX((parentW - child.getWidth()) * 0.5f);
-            child.setY((parentH - child.getHeight()) * 0.5f);
+            child.setX((parentW - getScaledWidth(child)) * 0.5f);
+            child.setY((parentH - getScaledHeight(child)) * 0.5f);
         }
 
         if ((alignInParent & Align.left) == Align.left) {
             child.setX(0);
             if (toLeft != null) {
-                child.setWidth(toLeft.getX());
+                child.setWidth(getAnchoredX(toLeft));
             }
         }
         
         if ((alignInParent & Align.bottom) == Align.bottom) {
             child.setY(0);
             if (toBelow != null) {
-                child.setHeight(toBelow.getY());
+                child.setHeight(getAnchoredY(toBelow));
             }
         }
         
         if ((alignInParent & Align.right) == Align.right) {
             if (toRight != null) {
-                child.setWidth(parentW - (toRight.getX() + toRight.getWidth()));
+                child.setWidth(parentW - (getAnchoredX(toRight) + getScaledWidth(toRight)));
             }
-            child.setX(parentW - child.getWidth());
+            child.setX(parentW - getScaledWidth(child));
         }
         
         if ((alignInParent & Align.top) == Align.top) {
             if (toAbove != null) {
-                child.setHeight(parentH - (toAbove.getY() + toAbove.getHeight()));
+                child.setHeight(parentH - (getAnchoredY(toAbove) + getScaledHeight(toAbove)));
             }
-            child.setY(parentH - child.getHeight());
+            child.setY(parentH - getScaledHeight(child));
         }
+    }
+    
+    private static float getScaledWidth(Actor actor) {
+        return actor.getWidth() * actor.getScaleX();
+    }
+
+    private static float getScaledHeight(Actor actor) {
+        return actor.getHeight() * actor.getScaleY();
+    }
+    
+    private static float getAnchoredX(Actor actor) {
+        return actor.getX() + actor.getOriginX();
+    }
+
+    private static float getAnchoredY(Actor actor) {
+        return actor.getY() + actor.getOriginY();
     }
 }

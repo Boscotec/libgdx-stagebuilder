@@ -62,6 +62,25 @@
 			<group alignInParent="center|right" toRightOf="middle" width="1" height="20" debug="true"/>
 		</group>
 	</group>
+
+	<group width="800" height="30" y="250" debug="true">
+
+		<group name="leftAnchor" alignInParent="left" width="50"/>
+		<group name="rightAnchor" alignInParent="right" width="50"/>
+
+		<group name="playerWidgetGroup" width="166" height="50" alignInParent="center|bottom" debug="true">
+		</group>
+
+		<group name="leftFooterGroup" y="5" height="20" toRightOf="leftAnchor" toLeftOf="playerWidgetGroup" debug="true">
+			<group name="timeBonusGroup" width="140" height="20" alignInParent="center" debug="true">
+
+			</group>
+		</group>
+
+		<group name="rightFooterGroup" y="5" height="20"
+			   toRightOf="playerWidgetGroup" toLeftOf="rightAnchor" debug="true">
+		</group>
+	</group>
 	
 	<group width="50" height="50" x="10" y="120" debug="true">
 		<image width="10" height="10" frame="ninepatch_bg" atlas="common.atlas" np="5" alignInParent="center"/>
