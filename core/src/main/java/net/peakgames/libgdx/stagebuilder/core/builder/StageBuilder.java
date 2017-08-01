@@ -73,10 +73,10 @@ public class StageBuilder {
     }
 
     public Group buildGroup(String fileName) throws Exception {
-        Group group = new Group();
-        GroupModel groupModel = buildGroupOnly(fileName, group);
-        fillGroupActors(group, groupModel);
-        return group;
+        XmlModelBuilder xmlModelBuilder = new XmlModelBuilder();
+        List<BaseModel> modelList = xmlModelBuilder.buildModels(getLayoutFile(fileName));
+        GroupModel groupModel = (GroupModel) modelList.get(0);
+        return buildGroup(groupModel);
     }
 
     public Group buildGroup(GroupModel groupModel) {
@@ -89,7 +89,7 @@ public class StageBuilder {
             group.addActor(builder.build(model, group));
         }
     }
-
+    
     public GroupModel buildGroupOnly(String fileName, Group groupToBeUpdated) throws Exception {
         XmlModelBuilder xmlModelBuilder = new XmlModelBuilder();
         List<BaseModel> modelList = xmlModelBuilder.buildModels(getLayoutFile(fileName));
@@ -132,34 +132,47 @@ public class StageBuilder {
         @Override
         public void run() {
             try {
-                final Group group = new Group();
-                final GroupModel groupModel = buildGroupOnly(fileName, group);
+                XmlModelBuilder xmlModelBuilder = new XmlModelBuilder();
+                List<BaseModel> modelList = xmlModelBuilder.buildModels(getLayoutFile(fileName));
+                final GroupModel groupModel = (GroupModel) modelList.get(0);
+                
                 Gdx.app.postRunnable(new Runnable() {
                     @Override
                     public void run() {
-                        fillGroupActors(group, groupModel);
-                        if(groupName != null) {
+                        Group group = buildGroup(groupModel);
+                        if (groupName != null) {
                             group.setName(groupName);
                         }
-                        fireOnGroupBuilded(fileName, group);
+                        
+                        fireOnGroupBuilt(fileName, group);
                     }
                 });
             } catch (Exception e) {
-                fireOnGroupBuildFailed(fileName, e);
+               fireOnGroupBuildFailed(fileName, e);
             }
         }
     }
 
-    private void fireOnGroupBuildFailed(String fileName, Exception e) {
-        if(stageBuilderListener != null){
-            stageBuilderListener.onGroupBuildFailed(fileName, e);
-        }
+    private void fireOnGroupBuildFailed(final String fileName, final Exception e) {
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run(){
+                if (stageBuilderListener != null) {
+                    stageBuilderListener.onGroupBuildFailed(fileName, e);
+                }
+                }
+        });
     }
 
-    private void fireOnGroupBuilded(String fileName, Group group) {
-        if(stageBuilderListener != null){
-            stageBuilderListener.onGroupBuilded(fileName, group);
-        }
+    private void fireOnGroupBuilt(final String fileName, final Group group) {
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run(){
+                if(stageBuilderListener != null){
+                    stageBuilderListener.onGroupBuilded(fileName, group);
+                }
+            }
+        });
     }
 
     private void updateGroupSizeAndPosition(Group group, GroupModel referenceModel) {
@@ -174,10 +187,9 @@ public class StageBuilder {
         try {
             XmlModelBuilder xmlModelBuilder = new XmlModelBuilder();
             List<BaseModel> modelList = xmlModelBuilder.buildModels(getLayoutFile(fileName));
-            GroupModel groupModel = (GroupModel) modelList.get(0);
+            Group rootGroup = createRootGroup((GroupModel) modelList.get(0));
+            
             Stage stage = new Stage(viewport);
-            Group rootGroup = createRootGroup();
-            addActorsToStage(rootGroup, groupModel.getChildren());
             stage.addActor(rootGroup);
             return stage;
         } catch (Exception e) {
@@ -185,23 +197,19 @@ public class StageBuilder {
         }
     }
 
-    public Group createRootGroup() {
-        Group rootGroup = new Group();
+    public Group createRootGroup(GroupModel groupModel) {
+        Group rootGroup;
+        if (groupModel == null) {
+            rootGroup = new Group();
+        } else {
+            rootGroup = buildGroup(groupModel);
+        }
+
         rootGroup.setName(ROOT_GROUP_NAME);
         rootGroup.setX(resolutionHelper.getGameAreaPosition().x);
         rootGroup.setY(resolutionHelper.getGameAreaPosition().y);
+        
         return rootGroup;
-    }
-
-    private void addActorsToStage(Group rootGroup, List<BaseModel> models) {
-        for (BaseModel model : models) {
-            try {
-                ActorBuilder builder = builders.get(model.getClass());
-                rootGroup.addActor(builder.build(model, rootGroup));
-            } catch (Exception e) {
-                throw new RuntimeException("Failed to build stage on actor: " + model.getName(), e);
-            }
-        }
     }
 
     public FileHandle getLayoutFile(String fileName) {

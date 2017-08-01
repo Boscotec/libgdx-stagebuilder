@@ -1,6 +1,5 @@
 package net.peakgames.libgdx.stagebuilder.core.builder;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import net.peakgames.libgdx.stagebuilder.core.CustomView;
@@ -39,7 +38,8 @@ public class ViewBuilder extends ActorBuilder {
 		} catch (IllegalAccessException e) {
 			throw new RuntimeException("Provided class for view has no public parameterless constructor: '" + viewModel.getKlass() +"'", e);
 		}
-
+		
+		normalizeModelSize(model, model.getWidth(), model.getHeight());
 		setBasicProperties(model, view);
 		
 		Group children;

@@ -83,7 +83,7 @@ public abstract class AbstractScreen implements Screen {
     private void createStage(boolean initiallyEmptyStage) {
         if (initiallyEmptyStage) {
             stage = new Stage(getViewport());
-            stage.addActor(stageBuilder.createRootGroup());
+            stage.addActor(stageBuilder.createRootGroup(null));
         } else {
             stage = stageBuilder.build(getFileName(), getViewport());
         }
