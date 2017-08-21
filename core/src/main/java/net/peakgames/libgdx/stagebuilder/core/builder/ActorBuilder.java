@@ -75,9 +75,10 @@ public abstract class ActorBuilder {
      * @param actor actor
      */
     protected void setBasicProperties(BaseModel model, Actor actor) {
+        float positionMultiplier = resolutionHelper.getPositionMultiplier();
         actor.setBounds(
-                model.getX() * resolutionHelper.getPositionMultiplier(),
-                model.getY() * resolutionHelper.getPositionMultiplier(),
+                model.getX() * positionMultiplier,
+                model.getY() * positionMultiplier,
                 model.getWidth(),
                 model.getHeight());
 
@@ -126,6 +127,11 @@ public abstract class ActorBuilder {
             actor.addListener(clickListener);
         }
 
+        model.setMarginTop(model.getMarginTop() * positionMultiplier);
+        model.setMarginBottom(model.getMarginBottom() * positionMultiplier);
+        model.setMarginLeft(model.getMarginLeft() * positionMultiplier);
+        model.setMarginRight(model.getMarginRight() * positionMultiplier);
+        
         actor.setDebug(model.isDebugEnabled());
     }
 

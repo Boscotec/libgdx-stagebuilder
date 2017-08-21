@@ -201,14 +201,21 @@ public class StageBuilder {
         Group rootGroup;
         if (groupModel == null) {
             rootGroup = new Group();
+
+            rootGroup.setName(ROOT_GROUP_NAME);
+            rootGroup.setBounds(
+                    resolutionHelper.getGameAreaPosition().x, resolutionHelper.getGameAreaPosition().y,
+                    resolutionHelper.getGameAreaBounds().x, resolutionHelper.getGameAreaBounds().y);
         } else {
+            groupModel.setName(ROOT_GROUP_NAME);
+            groupModel.setX(resolutionHelper.getGameAreaPosition().x / resolutionHelper.getPositionMultiplier());
+            groupModel.setY(resolutionHelper.getGameAreaPosition().y / resolutionHelper.getPositionMultiplier());
+            groupModel.setWidth(resolutionHelper.getGameAreaBounds().x / resolutionHelper.getPositionMultiplier());
+            groupModel.setHeight(resolutionHelper.getGameAreaBounds().y / resolutionHelper.getPositionMultiplier());
+
             rootGroup = buildGroup(groupModel);
         }
 
-        rootGroup.setName(ROOT_GROUP_NAME);
-        rootGroup.setX(resolutionHelper.getGameAreaPosition().x);
-        rootGroup.setY(resolutionHelper.getGameAreaPosition().y);
-        
         return rootGroup;
     }
 

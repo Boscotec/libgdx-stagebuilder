@@ -1,7 +1,11 @@
 package net.peakgames.libgdx.stagebuilder.core.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ViewModel extends BaseModel {
 	
+	private Map<String, String> attrs = new HashMap<String, String>();
 	private String klass;
 	private String layout;
 
@@ -19,5 +23,13 @@ public class ViewModel extends BaseModel {
 
 	public void setLayout(String layout) {
 		this.layout = layout;
+	}
+
+	public Map<String, String> getAttrs() {
+		return attrs;
+	}
+
+	public void addAttribute(String key, String value) {
+		attrs.put(key, value);
 	}
 }

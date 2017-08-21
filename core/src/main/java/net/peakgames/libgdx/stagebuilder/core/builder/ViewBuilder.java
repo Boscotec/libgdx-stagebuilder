@@ -41,14 +41,20 @@ public class ViewBuilder extends ActorBuilder {
 		
 		normalizeModelSize(model, model.getWidth(), model.getHeight());
 		setBasicProperties(model, view);
-		
-		Group children;
+	
+		if (viewModel.getLayout() != null) {
+			try {
+				Group children = builder.buildGroup(viewModel.getLayout());
+				view.addActor(children);
+			} catch (Exception e) {
+				throw new RuntimeException("Could not build given layout: " + viewModel.getLayout(), e);
+			}
+		}
+
 		try {
-			children = builder.buildGroup(viewModel.getLayout());
-			view.addActor(children);
-			view.build(assets, resolutionHelper, localizationService);
+			view.build(viewModel.getAttrs(), assets, resolutionHelper, localizationService);
 		} catch (Exception e) {
-			throw new RuntimeException("Could not build given layout: " + viewModel.getLayout());
+			throw new RuntimeException("Exception in custom view's build method: " + viewModel.getName(), e);
 		}
 
 		return (Actor) view;

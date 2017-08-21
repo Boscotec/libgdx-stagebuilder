@@ -7,10 +7,13 @@ import net.peakgames.libgdx.stagebuilder.core.assets.AssetsInterface;
 import net.peakgames.libgdx.stagebuilder.core.assets.ResolutionHelper;
 import net.peakgames.libgdx.stagebuilder.core.services.LocalizationService;
 
+import java.util.Map;
+
 public class DemoCustomView extends CustomView {
 	
 	@Override
-	public void build(AssetsInterface assets, ResolutionHelper resHelper, LocalizationService locale) {
+	public void build(Map<String, String> attr, AssetsInterface assets, 
+	                  ResolutionHelper resHelper, LocalizationService locale) {
 		Label label = findActor("label");
 		Image image = findActor("thisImage");
 		

@@ -116,6 +116,11 @@ public class XmlModelBuilder {
         
         model.setKlass(XmlHelper.readStringAttribute(xmlParser, "class"));
         model.setLayout(XmlHelper.readStringAttribute(xmlParser, "layout", null));
+
+        int numberOfAttributes = xmlParser.getAttributeCount();
+        for (int i = 0; i < numberOfAttributes; i++) {
+            model.addAttribute(xmlParser.getAttributeName(i), xmlParser.getAttributeValue(i));
+        }
         
         return model;
     }
