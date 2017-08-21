@@ -127,11 +127,6 @@ public abstract class ActorBuilder {
             actor.addListener(clickListener);
         }
 
-        model.setMarginTop(model.getMarginTop() * positionMultiplier);
-        model.setMarginBottom(model.getMarginBottom() * positionMultiplier);
-        model.setMarginLeft(model.getMarginLeft() * positionMultiplier);
-        model.setMarginRight(model.getMarginRight() * positionMultiplier);
-        
         actor.setDebug(model.isDebugEnabled());
     }
 
