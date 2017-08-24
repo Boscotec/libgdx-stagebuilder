@@ -3,6 +3,7 @@ package net.peakgames.libgdx.stagebuilder.core.builder;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import net.peakgames.libgdx.stagebuilder.core.assets.AssetsInterface;
 import net.peakgames.libgdx.stagebuilder.core.assets.ResolutionHelper;
@@ -20,7 +21,7 @@ public class LabelBuilder extends ActorBuilder {
     }
 
     @Override
-    public Actor build(BaseModel model) {
+    public Actor build(BaseModel model, Group parent) {
         LabelModel labelModel = (LabelModel) model;
         Color color = labelModel.getFontColor() == null ? DEFAULT_LABEL_COLOR : Color.valueOf(labelModel.getFontColor());
 

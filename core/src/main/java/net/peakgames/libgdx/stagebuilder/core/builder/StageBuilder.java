@@ -68,26 +68,28 @@ public class StageBuilder {
         builders.put(CheckBoxModel.class, new CheckBoxBuilder( assets, resolutionHelper, localizationService));
         builders.put(ToggleWidgetModel.class, new ToggleWidgetBuilder( assets, resolutionHelper, localizationService));
         builders.put(OneDimensionGroupModel.class, new OneDimensionalGroupBuilder(builders, assets, resolutionHelper, localizationService));
+        
+        builders.put(ViewModel.class, new ViewBuilder(this, assets, resolutionHelper, localizationService));
     }
 
     public Group buildGroup(String fileName) throws Exception {
-        Group group = new Group();
-        GroupModel groupModel = buildGroupOnly(fileName, group);
-        fillGroupActors(group, groupModel);
-        return group;
+        XmlModelBuilder xmlModelBuilder = new XmlModelBuilder();
+        List<BaseModel> modelList = xmlModelBuilder.buildModels(getLayoutFile(fileName));
+        GroupModel groupModel = (GroupModel) modelList.get(0);
+        return buildGroup(groupModel);
     }
 
     public Group buildGroup(GroupModel groupModel) {
-        return (Group) builders.get(GroupModel.class).build(groupModel);
+        return (Group) builders.get(GroupModel.class).build(groupModel, null);
     }
 
     public void fillGroupActors(Group group, GroupModel groupModel) {
         for (BaseModel model : groupModel.getChildren()) {
             ActorBuilder builder = builders.get(model.getClass());
-            group.addActor(builder.build(model));
+            group.addActor(builder.build(model, group));
         }
     }
-
+    
     public GroupModel buildGroupOnly(String fileName, Group groupToBeUpdated) throws Exception {
         XmlModelBuilder xmlModelBuilder = new XmlModelBuilder();
         List<BaseModel> modelList = xmlModelBuilder.buildModels(getLayoutFile(fileName));
@@ -130,34 +132,47 @@ public class StageBuilder {
         @Override
         public void run() {
             try {
-                final Group group = new Group();
-                final GroupModel groupModel = buildGroupOnly(fileName, group);
+                XmlModelBuilder xmlModelBuilder = new XmlModelBuilder();
+                List<BaseModel> modelList = xmlModelBuilder.buildModels(getLayoutFile(fileName));
+                final GroupModel groupModel = (GroupModel) modelList.get(0);
+                
                 Gdx.app.postRunnable(new Runnable() {
                     @Override
                     public void run() {
-                        fillGroupActors(group, groupModel);
-                        if(groupName != null) {
+                        Group group = buildGroup(groupModel);
+                        if (groupName != null) {
                             group.setName(groupName);
                         }
-                        fireOnGroupBuilded(fileName, group);
+                        
+                        fireOnGroupBuilt(fileName, group);
                     }
                 });
             } catch (Exception e) {
-                fireOnGroupBuildFailed(fileName, e);
+               fireOnGroupBuildFailed(fileName, e);
             }
         }
     }
 
-    private void fireOnGroupBuildFailed(String fileName, Exception e) {
-        if(stageBuilderListener != null){
-            stageBuilderListener.onGroupBuildFailed(fileName, e);
-        }
+    private void fireOnGroupBuildFailed(final String fileName, final Exception e) {
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run(){
+                if (stageBuilderListener != null) {
+                    stageBuilderListener.onGroupBuildFailed(fileName, e);
+                }
+                }
+        });
     }
 
-    private void fireOnGroupBuilded(String fileName, Group group) {
-        if(stageBuilderListener != null){
-            stageBuilderListener.onGroupBuilded(fileName, group);
-        }
+    private void fireOnGroupBuilt(final String fileName, final Group group) {
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run(){
+                if(stageBuilderListener != null){
+                    stageBuilderListener.onGroupBuilded(fileName, group);
+                }
+            }
+        });
     }
 
     private void updateGroupSizeAndPosition(Group group, GroupModel referenceModel) {
@@ -172,10 +187,9 @@ public class StageBuilder {
         try {
             XmlModelBuilder xmlModelBuilder = new XmlModelBuilder();
             List<BaseModel> modelList = xmlModelBuilder.buildModels(getLayoutFile(fileName));
-            GroupModel groupModel = (GroupModel) modelList.get(0);
+            Group rootGroup = createRootGroup((GroupModel) modelList.get(0));
+            
             Stage stage = new Stage(viewport);
-            Group rootGroup = createRootGroup();
-            addActorsToStage(rootGroup, groupModel.getChildren());
             stage.addActor(rootGroup);
             return stage;
         } catch (Exception e) {
@@ -183,23 +197,26 @@ public class StageBuilder {
         }
     }
 
-    public Group createRootGroup() {
-        Group rootGroup = new Group();
-        rootGroup.setName(ROOT_GROUP_NAME);
-        rootGroup.setX(resolutionHelper.getGameAreaPosition().x);
-        rootGroup.setY(resolutionHelper.getGameAreaPosition().y);
-        return rootGroup;
-    }
+    public Group createRootGroup(GroupModel groupModel) {
+        Group rootGroup;
+        if (groupModel == null) {
+            rootGroup = new Group();
 
-    private void addActorsToStage(Group rootGroup, List<BaseModel> models) {
-        for (BaseModel model : models) {
-            try {
-                ActorBuilder builder = builders.get(model.getClass());
-                rootGroup.addActor(builder.build(model));
-            } catch (Exception e) {
-                throw new RuntimeException("Failed to build stage on actor: " + model.getName(), e);
-            }
+            rootGroup.setName(ROOT_GROUP_NAME);
+            rootGroup.setBounds(
+                    resolutionHelper.getGameAreaPosition().x, resolutionHelper.getGameAreaPosition().y,
+                    resolutionHelper.getGameAreaBounds().x, resolutionHelper.getGameAreaBounds().y);
+        } else {
+            groupModel.setName(ROOT_GROUP_NAME);
+            groupModel.setX(resolutionHelper.getGameAreaPosition().x / resolutionHelper.getPositionMultiplier());
+            groupModel.setY(resolutionHelper.getGameAreaPosition().y / resolutionHelper.getPositionMultiplier());
+            groupModel.setWidth(resolutionHelper.getGameAreaBounds().x / resolutionHelper.getPositionMultiplier());
+            groupModel.setHeight(resolutionHelper.getGameAreaBounds().y / resolutionHelper.getPositionMultiplier());
+
+            rootGroup = buildGroup(groupModel);
         }
+
+        return rootGroup;
     }
 
     public FileHandle getLayoutFile(String fileName) {

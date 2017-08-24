@@ -2,6 +2,7 @@ package net.peakgames.libgdx.stagebuilder.core.model;
 
 
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 
 import java.util.Locale;
 
@@ -56,6 +57,13 @@ public abstract class BaseModel {
      * used only if screen alignment is "left"
      */
     private float screenPaddingLeft;
+    
+    private String toLeftOf;
+    private String toRightOf;
+    private String toAboveOf;
+    private String toBelowOf;
+    
+    private int alignInParent = Align.bottomLeft;
 
     /**
      * enabled, disabled, childrenOnly
@@ -291,5 +299,45 @@ public abstract class BaseModel {
 
     public String getPathName() {
         return pathName;
+    }
+
+    public String getToLeftOf() {
+        return toLeftOf;
+    }
+
+    public void setToLeftOf(String toLeftOf) {
+        this.toLeftOf = toLeftOf;
+    }
+
+    public String getToRightOf() {
+        return toRightOf;
+    }
+
+    public void setToRightOf(String toRightOf) {
+        this.toRightOf = toRightOf;
+    }
+
+    public String getToAboveOf() {
+        return toAboveOf;
+    }
+
+    public void setToAboveOf(String toAboveOf) {
+        this.toAboveOf = toAboveOf;
+    }
+
+    public String getToBelowOf() {
+        return toBelowOf;
+    }
+
+    public void setToBelowOf(String toBelowOf) {
+        this.toBelowOf = toBelowOf;
+    }
+
+    public int getAlignInParent() {
+        return alignInParent;
+    }
+
+    public void setAlignInParent(int alignInParent) {
+        this.alignInParent = alignInParent;
     }
 }

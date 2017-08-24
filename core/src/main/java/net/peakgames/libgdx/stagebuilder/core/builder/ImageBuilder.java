@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
@@ -27,7 +28,7 @@ public class ImageBuilder extends ActorBuilder {
     }
 
     @Override
-    public Actor build(BaseModel model) {
+    public Actor build(BaseModel model, Group parent) {
         ImageModel imageModel = (ImageModel) model;
         Image image;
         if (imageModel.getTextureSrc() != null) {

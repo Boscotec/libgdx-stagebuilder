@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<group>
+    <label name="label" y="10" width="200" text="" fontName="default_font.fnt" fontColor="FFFFFF"/>
+    <image name="thisImage" y="40" atlas="common.atlas" frame="androidlogo" rotation="-30"/>
+</group>

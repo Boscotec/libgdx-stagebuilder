@@ -2,11 +2,10 @@ package net.peakgames.libgdx.stagebuilder.core.builder;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -14,7 +13,6 @@ import net.peakgames.libgdx.stagebuilder.core.assets.AssetsInterface;
 import net.peakgames.libgdx.stagebuilder.core.assets.ResolutionHelper;
 import net.peakgames.libgdx.stagebuilder.core.model.BaseModel;
 import net.peakgames.libgdx.stagebuilder.core.model.TextAreaModel;
-import net.peakgames.libgdx.stagebuilder.core.model.TextFieldModel;
 import net.peakgames.libgdx.stagebuilder.core.services.LocalizationService;
 
 public class TextAreaBuilder extends ActorBuilder{
@@ -24,7 +22,7 @@ public class TextAreaBuilder extends ActorBuilder{
     }
 
     @Override
-    public Actor build(BaseModel model) {
+    public Actor build(BaseModel model, Group parent) {
         TextAreaModel textAreaModel = (TextAreaModel)model;
         
         BitmapFont font = assets.getFont(textAreaModel.getFontName());

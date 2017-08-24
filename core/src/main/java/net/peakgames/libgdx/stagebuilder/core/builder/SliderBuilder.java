@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import net.peakgames.libgdx.stagebuilder.core.assets.AssetsInterface;
@@ -22,7 +23,7 @@ public class SliderBuilder extends ActorBuilder{
     }
 
     @Override
-    public Actor build(BaseModel model) {
+    public Actor build(BaseModel model, Group parent) {
         SliderModel sliderModel = (SliderModel) model;
         setTextures(sliderModel);
         Slider slider = new Slider( sliderModel.getMinValue(),

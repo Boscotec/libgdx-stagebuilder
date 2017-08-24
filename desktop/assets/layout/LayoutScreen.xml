@@ -1,32 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <group>
 
-	<image name="background_image" atlas="common.atlas" frame="background" type="background"/>
-	
-	<button name="backButton" x="10" y="420" atlas="common.atlas" frameUp="back_button" frameDown="back_buttonH"/>
-	
-	<horizontal x="100" y="370" name="horizontalGroup" width="600" height="110" spacing="20" padRight="20"
-				padTop="10" debug="true" reverse="true" align="top" prefHeight="30" prefWidth="20">
-		<image name="image1" atlas="common.atlas" frame="accept_button"/>
-		<image name="image2" atlas="common.atlas" frame="accept_button"/>
-		<image name="image3" atlas="common.atlas" frame="accept_button"/>
-	</horizontal>
+    <image name="background_image" atlas="common.atlas" frame="background" type="background"/>
 
-	<vertical x="550" name="verticalGroup" width="150" height="330" debug="true" pads="0 0 5 5" 
-			  reverse="true" align="right">
-		<image name="image1" atlas="common.atlas" frame="accept_button"/>
-		<image name="image2" atlas="common.atlas" frame="accept_button"/>
-		<image name="image3" atlas="common.atlas" frame="accept_button"/>
-	</vertical>
+    <button name="backButton" x="10" y="420" atlas="common.atlas" frameUp="back_button" frameDown="back_buttonH"/>
 
-	<textbutton name="addBtn" atlas="common.atlas" ninepatch="true" frameUp="textFieldBackground"
-				frameDown="textFieldBackground" npLeft="8" npRight="8" npTop="8" npBottom="8"
-				x="704" y="100" width="47" height="47" text="+"
-				fontName="default_font.fnt" fontColor="FFFFFF"
-				tintColorUp="555555" tintColorDown="0044FF"/>
-	<textbutton name="removeBtn" atlas="common.atlas" ninepatch="true" frameUp="textFieldBackground"
-				frameDown="textFieldBackground" npLeft="8" npRight="8" npTop="8" npBottom="8"
-				x="704" y="40" width="47" height="47" text="-"
-				fontName="default_font.fnt" fontColor="FFFFFF"
-				tintColorUp="555555" tintColorDown="FF0000"/>
+    <group x="0" y="0">
+        <horizontal x="100" y="370" name="horizontalGroup" width="300" height="100" spacing="20" padRight="20"
+                    padTop="10" debug="true" reverse="true" align="top" prefHeight="30" prefWidth="20">
+            <image name="image1" atlas="common.atlas" frame="accept_button"/>
+            <image name="image2" atlas="common.atlas" frame="accept_button"/>
+            <image name="image3" atlas="common.atlas" frame="accept_button"/>
+        </horizontal>
+
+        <vertical x="100" name="verticalGroup" width="100" height="330" debug="true" pads="0 0 5 5"
+                  reverse="true" align="right">
+            <image name="image1" atlas="common.atlas" frame="accept_button"/>
+            <image name="image2" atlas="common.atlas" frame="accept_button"/>
+            <image name="image3" atlas="common.atlas" frame="accept_button"/>
+        </vertical>
+
+        <textbutton name="addBtn" atlas="common.atlas" ninepatch="true" frameUp="textFieldBackground"
+                    frameDown="textFieldBackground" npLeft="8" npRight="8" npTop="8" npBottom="8"
+                    x="50" y="100" width="47" height="47" text="+"
+                    fontName="default_font.fnt" fontColor="FFFFFF"
+                    tintColorUp="555555" tintColorDown="0044FF"/>
+        <textbutton name="removeBtn" atlas="common.atlas" ninepatch="true" frameUp="textFieldBackground"
+                    frameDown="textFieldBackground" npLeft="8" npRight="8" npTop="8" npBottom="8"
+                    x="50" y="40" width="47" height="47" text="-"
+                    fontName="default_font.fnt" fontColor="FFFFFF"
+                    tintColorUp="555555" tintColorDown="FF0000"/>
+    </group>
+
+    <group x="250" y="50" width="400" height="200">
+        <image name="ninepatch" width="400" height="200" frame="ninepatch_bg" atlas="common.atlas" ninepatch="true"
+               npLeft="5" npRight="5" npTop="5" npBottom="5"/>
+
+        <label name="username_label" x="0" y="120" width="180" height="30"
+               align="center" text="Username : " fontName="default_font.fnt" fontColor="000000" debug="true"/>
+
+        <textField name="usernameTextfield"
+                   text="Type here "
+                   atlas="common.atlas"
+                   cursorImage="cursor"
+                   selectionImage="selection"
+                   backgroundImage="textFieldBackground"
+                   backgroundOffset="6"
+                   cursorOffset="1"
+                   selectionOffset="1"
+                   fontName="default_font.fnt"
+                   fontColor="000000"
+                   width="180"
+                   height="30"
+                   y="120"
+                   toRightOf="username_label"
+                   debug="true"/>
+
+        <label name="password_label" width="180" height="30"
+               align="center" text="Password : " fontName="default_font.fnt" fontColor="000000"
+               toBelowOf="username_label" toLeftOf="usernameTextfield" debug="true"/>
+
+        <textField name="passwordTextfield"
+                   text="Password"
+                   atlas="common.atlas"
+                   cursorImage="cursor"
+                   selectionImage="selection"
+                   backgroundImage="textFieldBackground"
+                   backgroundOffset="6"
+                   cursorOffset="1"
+                   selectionOffset="1"
+                   fontName="default_font.fnt"
+                   fontColor="000000"
+                   password="true"
+                   passwordChar="*"
+                   width="180"
+                   height="30"
+                   toRightOf="password_label"
+                   toBelowOf="usernameTextfield" debug="true"/>
+
+        <textbutton name="submit_button" atlas="common.atlas" ninepatch="true" frameUp="textFieldBackground"
+                    frameDown="textFieldBackground" npLeft="8" npRight="8" npTop="8" npBottom="8"
+                    width="100" height="40" text="SUBMIT"
+                    fontName="default_font.fnt" fontColor="000000"
+                    tintColorUp="DFDFDF" tintColorDown="FF0000"
+                    toBelowOf="passwordTextfield"
+                    toRightOf="password_label" debug="true"/>
+
+    </group>
+
+    <group x="400" y="300">
+        <group width="50" height="50" x="10" y="120" debug="true">
+            <image width="10" height="10" frame="ninepatch_bg" atlas="common.atlas" np="5" alignInParent="center"/>
+        </group>
+
+        <group width="50" height="50" x="70" y="120" debug="true">
+            <image width="10" height="10" frame="ninepatch_bg" atlas="common.atlas" np="5" alignInParent="center|left"/>
+        </group>
+
+        <group width="50" height="50" x="130" y="120" debug="true">
+            <image width="10" height="10" frame="ninepatch_bg" atlas="common.atlas" np="5" alignInParent="bottom|right"/>
+        </group>
+
+        <group width="50" height="50" x="190" y="120" debug="true">
+            <image width="10" height="10" frame="ninepatch_bg" atlas="common.atlas" np="5" alignInParent="top|center"/>
+        </group>
+    </group>
+
+
 </group>

@@ -7,6 +7,7 @@ import net.peakgames.libgdx.stagebuilder.core.services.LocalizationService;
 
 import java.util.Map;
 
+@Deprecated
 public interface ICustomWidget {
     public void build(Map<String, String> attributes, AssetsInterface assetsInterface, ResolutionHelper resolutionHelper, LocalizationService localizationService);
 }

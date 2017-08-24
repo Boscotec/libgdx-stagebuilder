@@ -1,6 +1,7 @@
 package net.peakgames.libgdx.stagebuilder.core.xml;
 
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Align;
 import net.peakgames.libgdx.stagebuilder.core.builder.ShadowLabel;
 import net.peakgames.libgdx.stagebuilder.core.model.*;
 import org.xmlpull.v1.XmlPullParser;
@@ -25,6 +26,7 @@ public class XmlModelBuilder {
     public static final String TOGGLE_WIDGET_TAG = "ToggleWidget";
     public static final String VERTICAL_GROUP_TAG = "Vertical";
     public static final String HORIZONTAL_GROUP_TAG = "Horizontal";
+    public static final String VIEW_TAG = "View";
     public static final String LOCALIZED_STRING_PREFIX = "@string/";
     
     public static final List<String> PARENT_TAGS_LIST = Arrays.asList(
@@ -98,11 +100,28 @@ public class XmlModelBuilder {
             model = buildVerticalGroupModel(xmlParser);
         } else if ( HORIZONTAL_GROUP_TAG.equalsIgnoreCase(tagName)){
             model = buildHorizontalGroupModel(xmlParser);
-        } else if (isCustomWidget(tagName)) {
+        } else if (VIEW_TAG.equalsIgnoreCase(tagName)) {
+            model = buildView(xmlParser);
+        } else if (isCustomWidget(tagName)) { //for custom widget implementation refer to CustomView
             model = buildCustomWidget(xmlParser, tagName);
-        } else{
+        } else {
             model = buildExternalGroupModel(xmlParser, tagName);
         }
+        return model;
+    }
+
+    private BaseModel buildView(XmlPullParser xmlParser) {
+        ViewModel model = new ViewModel();
+        setBaseModelParameters(model, xmlParser);
+        
+        model.setKlass(XmlHelper.readStringAttribute(xmlParser, "class"));
+        model.setLayout(XmlHelper.readStringAttribute(xmlParser, "layout", null));
+
+        int numberOfAttributes = xmlParser.getAttributeCount();
+        for (int i = 0; i < numberOfAttributes; i++) {
+            model.addAttribute(xmlParser.getAttributeName(i), xmlParser.getAttributeValue(i));
+        }
+        
         return model;
     }
 
@@ -450,6 +469,13 @@ public class XmlModelBuilder {
         model.setScreenPaddingRight(XmlHelper.readFloatAttribute(xmlParser, "screenPaddingRight", 0.0f));
         model.setTouchable(XmlHelper.readStringAttribute(xmlParser, "touchable", "enabled"));
         model.setDebugEnabled(XmlHelper.readBooleanAttribute(xmlParser, "debug", false));
+        
+        model.setToLeftOf(XmlHelper.readStringAttribute(xmlParser, "toLeftOf", null));
+        model.setToRightOf(XmlHelper.readStringAttribute(xmlParser, "toRightOf", null));
+        model.setToAboveOf(XmlHelper.readStringAttribute(xmlParser, "toAboveOf", null));
+        model.setToBelowOf(XmlHelper.readStringAttribute(xmlParser, "toBelowOf", null));
+        
+        model.setAlignInParent(XmlHelper.readAlignmentAttribute(xmlParser, "alignInParent", Align.bottomLeft));
     }
 
 }

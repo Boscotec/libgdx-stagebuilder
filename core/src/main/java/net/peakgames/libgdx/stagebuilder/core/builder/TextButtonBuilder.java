@@ -1,18 +1,18 @@
 package net.peakgames.libgdx.stagebuilder.core.builder;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.Align;
 import net.peakgames.libgdx.stagebuilder.core.assets.AssetsInterface;
 import net.peakgames.libgdx.stagebuilder.core.assets.ResolutionHelper;
 import net.peakgames.libgdx.stagebuilder.core.model.BaseModel;
 import net.peakgames.libgdx.stagebuilder.core.model.TextButtonModel;
 import net.peakgames.libgdx.stagebuilder.core.services.LocalizationService;
-
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Cell;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.utils.Align;
 
 public class TextButtonBuilder extends ButtonBuilder {
 
@@ -22,7 +22,7 @@ public class TextButtonBuilder extends ButtonBuilder {
     }
 
     @Override
-    public Actor build(BaseModel model) {
+    public Actor build(BaseModel model, Group parent) {
         TextButtonModel textButtonModel = (TextButtonModel) model;
         setTextures(textButtonModel);
 
