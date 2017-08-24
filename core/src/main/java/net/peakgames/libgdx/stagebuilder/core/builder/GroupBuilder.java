@@ -39,8 +39,7 @@ public class GroupBuilder extends ActorBuilder {
             group.addActor(actor);
         }
         
-        //if (groupModel.isRelativeEnabled())
-            setChildRelativePositions(group, children);
+        setChildRelativePositions(group, children);
         
         return group;
     }
