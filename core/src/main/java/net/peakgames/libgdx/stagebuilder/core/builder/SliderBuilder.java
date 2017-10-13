@@ -32,7 +32,7 @@ public class SliderBuilder extends ActorBuilder{
                 sliderModel.isVertical(),
                 new Slider.SliderStyle( background, knob));
         updateDrawableSize( knob);
-        normalizeModelSize( sliderModel, background.getMinWidth(), background.getMinHeight());
+        normalizeModelSize( sliderModel, parent, background.getMinWidth(), background.getMinHeight());
         updateDrawableSize( background);
         setBasicProperties( model, slider);
         return slider;

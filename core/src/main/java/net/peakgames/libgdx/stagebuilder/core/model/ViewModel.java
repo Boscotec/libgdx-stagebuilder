@@ -3,7 +3,7 @@ package net.peakgames.libgdx.stagebuilder.core.model;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ViewModel extends BaseModel {
+public class ViewModel extends GroupModel {
 	
 	private Map<String, String> attrs = new HashMap<String, String>();
 	private String klass;

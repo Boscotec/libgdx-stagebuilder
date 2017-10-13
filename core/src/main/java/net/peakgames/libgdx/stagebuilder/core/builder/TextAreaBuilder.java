@@ -75,7 +75,7 @@ public class TextAreaBuilder extends ActorBuilder{
         textArea.setPasswordMode(textAreaModel.isPassword());
         textArea.setPasswordCharacter(textAreaModel.getPasswordChar().charAt(0));
         if(textAreaModel.getHint() != null) textArea.setMessageText(getLocalizedString(textAreaModel.getHint()));
-        normalizeModelSize(model, model.getWidth(), model.getHeight());
+        normalizeModelSize(model, parent, model.getWidth(), model.getHeight());
         setBasicProperties(model, textArea);
         
         return textArea;

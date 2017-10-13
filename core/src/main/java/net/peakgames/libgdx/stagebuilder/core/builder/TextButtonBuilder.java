@@ -44,7 +44,7 @@ public class TextButtonBuilder extends ButtonBuilder {
         }
 
         TextButton textButton = new TextButton(getLocalizedString(textButtonModel.getText()).replace("\\n", String.format("%n")), style);
-        normalizeModelSize(textButtonModel, up.getMinWidth(), up.getMinHeight());
+        normalizeModelSize(textButtonModel, parent, up.getMinWidth(), up.getMinHeight());
         setBasicProperties(textButtonModel, textButton);
         setTextButtonProperties(textButtonModel, font, textButton);
 

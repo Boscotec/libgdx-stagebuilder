@@ -2,12 +2,16 @@ package net.peakgames.libgdx.stagebuilder.core.builder;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.SnapshotArray;
 import net.peakgames.libgdx.stagebuilder.core.CustomView;
 import net.peakgames.libgdx.stagebuilder.core.assets.AssetsInterface;
 import net.peakgames.libgdx.stagebuilder.core.assets.ResolutionHelper;
 import net.peakgames.libgdx.stagebuilder.core.model.BaseModel;
+import net.peakgames.libgdx.stagebuilder.core.model.GroupModel;
 import net.peakgames.libgdx.stagebuilder.core.model.ViewModel;
 import net.peakgames.libgdx.stagebuilder.core.services.LocalizationService;
+
+import java.util.List;
 
 public class ViewBuilder extends ActorBuilder {
 
@@ -39,13 +43,23 @@ public class ViewBuilder extends ActorBuilder {
 			throw new RuntimeException("Provided class for view has no public parameterless constructor: '" + viewModel.getKlass() +"'", e);
 		}
 		
-		normalizeModelSize(model, model.getWidth(), model.getHeight());
+		normalizeModelSize(model, parent, model.getWidth(), model.getHeight());
 		setBasicProperties(model, view);
 	
 		if (viewModel.getLayout() != null) {
 			try {
-				Group children = builder.buildGroup(viewModel.getLayout());
-				view.addActor(children);
+				List<BaseModel> children = builder.getBaseModelList(viewModel.getLayout());
+				GroupModel rootGroup = (GroupModel) children.get(0);
+				viewModel.setChildren(rootGroup.getChildren());
+				Group group = builder.buildGroup(viewModel);
+
+				SnapshotArray<Actor> proxyChildren = group.getChildren();
+				int proxySize = proxyChildren.size;
+				Actor[] stored = proxyChildren.begin();
+				for (int i = 0; i < proxySize; i++) {
+					view.addActor(stored[i]);
+				}
+				proxyChildren.end();
 			} catch (Exception e) {
 				throw new RuntimeException("Could not build given layout: " + viewModel.getLayout(), e);
 			}

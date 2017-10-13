@@ -43,7 +43,7 @@ public class ButtonBuilder extends ActorBuilder {
         if ( buttonModel.getFrameChecked() != null){
             button.getStyle().checked = checked;
         }
-        normalizeModelSize(buttonModel, up.getMinWidth(), up.getMinHeight());
+        normalizeModelSize(buttonModel, parent, up.getMinWidth(), up.getMinHeight());
         setBasicProperties(model, button);
         return button;
     }
