@@ -37,7 +37,7 @@ public class ImageBuilder extends ActorBuilder {
             image = createFromTextureAtlas(imageModel);
         }
 
-        normalizeModelSize(imageModel,
+        normalizeModelSize(imageModel, parent,
                 image.getDrawable().getMinWidth(),
                 image.getDrawable().getMinHeight());
 

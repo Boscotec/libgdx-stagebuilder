@@ -223,18 +223,22 @@ public abstract class ActorBuilder {
      * @param defaultWidth  if width of the actor is not specified in layout file then defaultWidth is multiplied with sizeMultiplier
      * @param defaultHeight if height of the actor is not specified in layout file then defaultHeight is multiplied with sizeMultiplier
      */
-    protected void normalizeModelSize(BaseModel model, float defaultWidth, float defaultHeight) {
-        float width = model.getWidth();
-        float height = model.getHeight();
-        if (width == 0) {
-            model.setWidth(defaultWidth * resolutionHelper.getSizeMultiplier());
+    protected void normalizeModelSize(BaseModel model, Group parent, float defaultWidth, float defaultHeight) {
+        if (parent != null && model.isFillParentWidth()) {
+            model.setWidth(parent.getWidth());
         } else {
-            model.setWidth(width * resolutionHelper.getPositionMultiplier());
+            float width = model.getWidth();
+            model.setWidth(width == 0 ?
+                    defaultWidth * resolutionHelper.getSizeMultiplier() :
+                    width * resolutionHelper.getPositionMultiplier());
         }
-        if (height == 0) {
-            model.setHeight(defaultHeight * resolutionHelper.getSizeMultiplier());
+        if (parent != null && model.isFillParentHeight()) {
+            model.setHeight(parent.getHeight());
         } else {
-            model.setHeight(height * resolutionHelper.getPositionMultiplier());
+            float height = model.getHeight();
+            model.setHeight(height == 0 ?
+                    defaultHeight * resolutionHelper.getSizeMultiplier() :
+                    height * resolutionHelper.getPositionMultiplier());
         }
     }
 

@@ -31,7 +31,7 @@ public class LabelBuilder extends ActorBuilder {
         String initialText = getLocalizedString(labelModel.getText()).replace("\\n", String.format("%n"));
         Label label = new Label(initialText, style);
         
-        normalizeModelSize(labelModel, 0, 0);
+        normalizeModelSize(labelModel, parent, 0, 0);
         setBasicProperties(model, label);
         setAlignmentAndScaling(labelModel, label);
 

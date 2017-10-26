@@ -39,7 +39,7 @@ public class CheckBoxBuilder extends TextButtonBuilder {
             style.checkboxOver = checkBoxOver;
         }
         CheckBox checkBox = new CheckBox( text, style);
-        normalizeModelSize( checkBoxModel, checkBoxOff.getMinWidth(), checkBoxOff.getMinHeight());
+        normalizeModelSize( checkBoxModel, parent, checkBoxOff.getMinWidth(), checkBoxOff.getMinHeight());
         setBasicProperties( checkBoxModel, checkBox);
         setTextButtonProperties( checkBoxModel, font, checkBox);
         

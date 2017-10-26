@@ -52,7 +52,7 @@ public class ToggleWidgetBuilder extends ActorBuilder{
             }
         }
 
-        normalizeModelSize(model, model.getWidth(), model.getHeight());
+        normalizeModelSize(model, parent, model.getWidth(), model.getHeight());
         setBasicProperties(model, toggleWidget);
 
         return toggleWidget;

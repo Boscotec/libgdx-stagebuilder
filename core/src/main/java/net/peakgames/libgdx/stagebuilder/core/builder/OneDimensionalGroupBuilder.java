@@ -36,7 +36,7 @@ public class OneDimensionalGroupBuilder extends ActorBuilder {
             group = new HorizontalGroupProxy();
         }
         
-        normalizeModelSize(model, model.getWidth(), model.getHeight());
+        normalizeModelSize(model, parent, model.getWidth(), model.getHeight());
         setBasicProperties(model, group.getGroup());
         
         if (groupModel.getAlign() != OneDimensionGroupModel.DEFAULT_ALIGNMENT) {

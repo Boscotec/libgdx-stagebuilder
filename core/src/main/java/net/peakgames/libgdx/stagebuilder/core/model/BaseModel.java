@@ -40,6 +40,8 @@ public abstract class BaseModel {
     private float rotation;
     private ScreenAlign screenAlignment = null;
     private ScreenAlign screenAlignmentSupport = null;
+    private boolean fillParentWidth;
+    private boolean fillParentHeight;
     private String pathName;
     /**
      * used only if screen alignment is "top"
@@ -340,4 +342,21 @@ public abstract class BaseModel {
     public void setAlignInParent(int alignInParent) {
         this.alignInParent = alignInParent;
     }
+
+    public boolean isFillParentWidth() {
+        return fillParentWidth;
+    }
+
+    public void setFillParentWidth(boolean fillParentWidth) {
+        this.fillParentWidth = fillParentWidth;
+    }
+
+    public boolean isFillParentHeight() {
+        return fillParentHeight;
+    }
+
+    public void setFillParentHeight(boolean fillParentHeight) {
+        this.fillParentHeight = fillParentHeight;
+    }
+
 }

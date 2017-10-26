@@ -10,6 +10,7 @@ import net.peakgames.libgdx.stagebuilder.core.model.BaseModel;
 import net.peakgames.libgdx.stagebuilder.core.model.GroupModel;
 import net.peakgames.libgdx.stagebuilder.core.services.LocalizationService;
 import net.peakgames.libgdx.stagebuilder.core.util.GdxUtils;
+import net.peakgames.libgdx.stagebuilder.core.widgets.ColoredGroup;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,8 +27,8 @@ public class GroupBuilder extends ActorBuilder {
     @Override
     public Actor build(BaseModel model, Group parent) {
         GroupModel groupModel = (GroupModel) model;
-        Group group = new Group();
-        normalizeModelSize(model, model.getWidth(), model.getHeight());
+        normalizeModelSize(model, parent, model.getWidth(), model.getHeight());
+        Group group = groupModel.getColor() != null ? new ColoredGroup(groupModel) : new Group();
         setBasicProperties(model, group);
         List<BaseModel> children = groupModel.getChildren();
         Collections.sort(children, new ZIndexComparator());

@@ -451,8 +451,6 @@ public class XmlModelBuilder {
         model.setPathName(XmlHelper.readStringAttribute(xmlParser, "path", null));
         model.setX(XmlHelper.readFloatAttribute(xmlParser, "x", 0.0f));
         model.setY(XmlHelper.readFloatAttribute(xmlParser, "y", 0.0f));
-        model.setWidth(XmlHelper.readFloatAttribute(xmlParser, "width", 0.0f));
-        model.setHeight(XmlHelper.readFloatAttribute(xmlParser, "height", 0.0f));
         model.setOriginX(XmlHelper.readFloatAttribute(xmlParser, "originX", 0.0f));
         model.setOriginY(XmlHelper.readFloatAttribute(xmlParser, "originY", 0.0f));
         model.setzIndex(XmlHelper.readIntAttribute(xmlParser, "zIndex", 0));
@@ -476,6 +474,29 @@ public class XmlModelBuilder {
         model.setToBelowOf(XmlHelper.readStringAttribute(xmlParser, "toBelowOf", null));
         
         model.setAlignInParent(XmlHelper.readAlignmentAttribute(xmlParser, "alignInParent", Align.bottomLeft));
-    }
 
+        String sWidth = XmlHelper.readStringAttribute(xmlParser, "width", "0");
+        float fWidth = 0f;
+        try {
+            fWidth = Float.parseFloat(sWidth);
+            model.setFillParentWidth(false);
+        } catch (NumberFormatException e){
+            if (sWidth.equalsIgnoreCase("FillParent")){
+                model.setFillParentWidth(true);
+            }
+        }
+        model.setWidth(fWidth);
+
+        String sHeight = XmlHelper.readStringAttribute(xmlParser, "height", "0");
+        float fHeight = 0f;
+        try {
+            fHeight = Float.parseFloat(sHeight);
+            model.setFillParentHeight(false);
+        } catch (NumberFormatException e) {
+            if (sHeight.equalsIgnoreCase("FillParent")) {
+                model.setFillParentHeight(true);
+            }
+        }
+        model.setHeight(fHeight);
+    }
 }

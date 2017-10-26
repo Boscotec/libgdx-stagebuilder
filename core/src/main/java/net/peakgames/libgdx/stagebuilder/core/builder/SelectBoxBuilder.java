@@ -104,7 +104,7 @@ public class SelectBoxBuilder extends ActorBuilder {
 
         selectBox.setBounds(selectBoxModel.getX(), selectBoxModel.getY(), selectionBackgroundDrawable.getPatch().getTotalWidth(), selectionBackgroundDrawable.getPatch().getTotalHeight());
 
-        normalizeModelSize(selectBoxModel, selectionBackgroundDrawable.getPatch().getTotalWidth(), selectionBackgroundDrawable.getPatch().getTotalHeight());
+        normalizeModelSize(selectBoxModel, parent, selectionBackgroundDrawable.getPatch().getTotalWidth(), selectionBackgroundDrawable.getPatch().getTotalHeight());
         setBasicProperties(selectBoxModel, selectBox);
 
         return selectBox;

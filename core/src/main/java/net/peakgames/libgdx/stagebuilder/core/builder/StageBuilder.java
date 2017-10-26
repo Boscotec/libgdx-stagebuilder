@@ -73,8 +73,7 @@ public class StageBuilder {
     }
 
     public Group buildGroup(String fileName) throws Exception {
-        XmlModelBuilder xmlModelBuilder = new XmlModelBuilder();
-        List<BaseModel> modelList = xmlModelBuilder.buildModels(getLayoutFile(fileName));
+        List<BaseModel> modelList = getBaseModelList(fileName);
         GroupModel groupModel = (GroupModel) modelList.get(0);
         return buildGroup(groupModel);
     }
@@ -91,8 +90,7 @@ public class StageBuilder {
     }
     
     public GroupModel buildGroupOnly(String fileName, Group groupToBeUpdated) throws Exception {
-        XmlModelBuilder xmlModelBuilder = new XmlModelBuilder();
-        List<BaseModel> modelList = xmlModelBuilder.buildModels(getLayoutFile(fileName));
+        List<BaseModel> modelList = getBaseModelList(fileName);
         GroupModel groupModel = (GroupModel) modelList.get(0);
         GroupBuilder groupBuilder = (GroupBuilder) builders.get(GroupModel.class);
         groupBuilder.setBasicProperties(groupModel, groupToBeUpdated);
@@ -132,8 +130,7 @@ public class StageBuilder {
         @Override
         public void run() {
             try {
-                XmlModelBuilder xmlModelBuilder = new XmlModelBuilder();
-                List<BaseModel> modelList = xmlModelBuilder.buildModels(getLayoutFile(fileName));
+                List<BaseModel> modelList = getBaseModelList(fileName);
                 final GroupModel groupModel = (GroupModel) modelList.get(0);
                 
                 Gdx.app.postRunnable(new Runnable() {
@@ -185,8 +182,7 @@ public class StageBuilder {
 
     public Stage build(String fileName, Viewport viewport) {
         try {
-            XmlModelBuilder xmlModelBuilder = new XmlModelBuilder();
-            List<BaseModel> modelList = xmlModelBuilder.buildModels(getLayoutFile(fileName));
+            List<BaseModel> modelList = getBaseModelList(fileName);
             Group rootGroup = createRootGroup((GroupModel) modelList.get(0));
             
             Stage stage = new Stage(viewport);
@@ -217,6 +213,11 @@ public class StageBuilder {
         }
 
         return rootGroup;
+    }
+
+    public List<BaseModel> getBaseModelList(String fileName) throws Exception {
+        XmlModelBuilder xmlModelBuilder = new XmlModelBuilder();
+        return xmlModelBuilder.buildModels(getLayoutFile(fileName));
     }
 
     public FileHandle getLayoutFile(String fileName) {
