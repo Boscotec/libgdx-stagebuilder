@@ -235,8 +235,8 @@ public class ListWidget extends WidgetGroup implements ICustomWidget, ListWidget
     }
 
     boolean isActorOutside(Actor actor) {
-        return isVertical ? getActorPos(actor) + getActorMeasure(actor) * 0.5f < 0 :
-                getActorPos(actor) - getActorMeasure(actor) * 0.5f > measure;
+        return isVertical ? getActorPos(actor) + getActorMeasure(actor) < 0 :
+                getActorPos(actor) - getActorMeasure(actor) > measure;
     }
 
     private void settleIfNecessary() {
@@ -669,7 +669,8 @@ public class ListWidget extends WidgetGroup implements ICustomWidget, ListWidget
         int size = children.size;
         for(int i=0; i<size; i++) {
             Actor actor =  children.get(i);
-            boolean isOut = getActorPos(actor) > measure || getActorOrigin(actor) < 0;
+            boolean isOut = getActorPos(actor) + getActorMeasure(actor) > measure
+                    || getActorOrigin(actor) - getActorMeasure(actor) < 0;
             if (!isActorEmpty(actor) && isOut) {
                 recycledActors.add(actor);
             }
