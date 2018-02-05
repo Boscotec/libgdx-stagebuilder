@@ -27,7 +27,7 @@
         <snapshotRepository>
             <id>android_dev</id>
             <name>Internal Snapshot Repository</name>
-            <url>https://archiva.peakgames.net/archiva/repository/android_dev/</url>
+            <url>https://archiva.svctr.zynga.com/archiva/repository/android_dev/</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -38,7 +38,7 @@
 		</repository>
 		<repository>
 			<id>android_dev</id>
-			<url>https://archiva.peakgames.net/archiva/repository/android_dev/</url>
+			<url>https://archiva.svctr.zynga.com/archiva/repository/android_dev/</url>
 		</repository>			
 	</repositories>
 
