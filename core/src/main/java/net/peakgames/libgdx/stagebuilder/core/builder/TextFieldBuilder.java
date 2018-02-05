@@ -75,7 +75,12 @@ public class TextFieldBuilder extends ActorBuilder{
         TextField textField = new TextField(getLocalizedString(textFieldModel.getText()), textFieldStyle);
         textField.setPasswordMode(textFieldModel.isPassword());
         textField.setPasswordCharacter(textFieldModel.getPasswordChar().charAt(0));
-        if(textFieldModel.getHint() != null) textField.setMessageText(getLocalizedString(textFieldModel.getHint()));
+        if(textFieldModel.getHint() != null) {
+            textField.setMessageText(getLocalizedString(textFieldModel.getHint()));
+            if (textFieldModel.getHintColor() != null) {
+                textFieldStyle.messageFontColor = Color.valueOf(textFieldModel.getHintColor());
+            }
+        }
         normalizeModelSize(model, parent, model.getWidth(), model.getHeight());
         setBasicProperties(model, textField);
 

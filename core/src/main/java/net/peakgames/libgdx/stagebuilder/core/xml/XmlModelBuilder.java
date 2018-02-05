@@ -358,11 +358,22 @@ public class XmlModelBuilder {
     	textFieldModel.setPassword(XmlHelper.readBooleanAttribute(xmlParser, "password", false));
     	textFieldModel.setPasswordChar(XmlHelper.readStringAttribute(xmlParser, "passwordChar", "*"));
         textFieldModel.setHint(XmlHelper.readStringAttribute(xmlParser, "hint"));
+        textFieldModel.setHintColor(XmlHelper.readStringAttribute(xmlParser, "hintColor"));
         textFieldModel.setPadding(XmlHelper.readFloatAttribute(xmlParser, "padding", 0.0f));
+
         textFieldModel.setLeftPadding(XmlHelper.readFloatAttribute(xmlParser, "leftPadding", 0.0f));
         textFieldModel.setRightPadding(XmlHelper.readFloatAttribute(xmlParser, "rightPadding", 0.0f));
         textFieldModel.setTopPadding(XmlHelper.readFloatAttribute(xmlParser, "topPadding", 0.0f));
         textFieldModel.setBottomPadding(XmlHelper.readFloatAttribute(xmlParser, "bottomPadding", 0.0f));
+        textFieldModel.setLeftPadding(XmlHelper.readFloatAttribute(
+                xmlParser, "paddingLeft", textFieldModel.getLeftPadding()));
+        textFieldModel.setRightPadding(XmlHelper.readFloatAttribute(
+                xmlParser, "paddingRight", textFieldModel.getRightPadding()));
+        textFieldModel.setTopPadding(XmlHelper.readFloatAttribute(
+                xmlParser, "paddingTop", textFieldModel.getTopPadding()));
+        textFieldModel.setBottomPadding(XmlHelper.readFloatAttribute(
+                xmlParser, "paddingBottom", textFieldModel.getBottomPadding()));
+
         textFieldModel.setAlignment(XmlHelper.readStringAttribute(xmlParser, "align"));
     	return textFieldModel;
     }
@@ -386,7 +397,12 @@ public class XmlModelBuilder {
         textAreaModel.setPassword(XmlHelper.readBooleanAttribute(xmlParser, "password", false));
         textAreaModel.setPasswordChar(XmlHelper.readStringAttribute(xmlParser, "passwordChar", "*"));
         textAreaModel.setHint(XmlHelper.readStringAttribute(xmlParser, "hint"));
+        textAreaModel.setHintColor(XmlHelper.readStringAttribute(xmlParser, "hintColor"));
         textAreaModel.setPadding(XmlHelper.readFloatAttribute(xmlParser, "padding", 0.0f));
+        textAreaModel.setLeftPadding(XmlHelper.readFloatAttribute(xmlParser, "paddingLeft", 0.0f));
+        textAreaModel.setRightPadding(XmlHelper.readFloatAttribute(xmlParser, "paddingRight", 0.0f));
+        textAreaModel.setTopPadding(XmlHelper.readFloatAttribute(xmlParser, "paddingTop", 0.0f));
+        textAreaModel.setBottomPadding(XmlHelper.readFloatAttribute(xmlParser, "paddingBottom", 0.0f));
         return textAreaModel;
     }
 

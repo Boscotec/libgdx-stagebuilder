@@ -63,10 +63,14 @@ public class TextAreaBuilder extends ActorBuilder{
                         textAreaModel.getBackgroundOffset(),
                         textAreaModel.getBackgroundOffset());
             }
-            background.setLeftWidth(textAreaModel.getPadding());
-            background.setRightWidth(textAreaModel.getPadding());
-            background.setBottomHeight(textAreaModel.getPadding());
-            background.setTopHeight(textAreaModel.getPadding());
+
+            if (textAreaModel.getPadding() == 0) {
+                addPaddings(
+                        background, textAreaModel.getLeftPadding(), textAreaModel.getRightPadding(),
+                        textAreaModel.getBottomPadding(), textAreaModel.getTopPadding());
+            } else {
+                addPaddings(background, textAreaModel.getPadding());
+            }
         }
 
 
@@ -74,7 +78,12 @@ public class TextAreaBuilder extends ActorBuilder{
         TextArea textArea = new TextArea(getLocalizedString(textAreaModel.getText()), textAreaStyle);
         textArea.setPasswordMode(textAreaModel.isPassword());
         textArea.setPasswordCharacter(textAreaModel.getPasswordChar().charAt(0));
-        if(textAreaModel.getHint() != null) textArea.setMessageText(getLocalizedString(textAreaModel.getHint()));
+        if(textAreaModel.getHint() != null) {
+            textArea.setMessageText(getLocalizedString(textAreaModel.getHint()));
+            if (textAreaModel.getHintColor() != null) {
+                textAreaStyle.messageFontColor = Color.valueOf(textAreaModel.getHintColor());
+            }
+        }
         normalizeModelSize(model, parent, model.getWidth(), model.getHeight());
         setBasicProperties(model, textArea);
         
@@ -85,5 +94,16 @@ public class TextAreaBuilder extends ActorBuilder{
         float sizeMultiplier = resolutionHelper.getSizeMultiplier();
         textureRegionDrawable.setMinWidth( textureRegionDrawable.getMinWidth() * sizeMultiplier);
         textureRegionDrawable.setMinHeight( textureRegionDrawable.getMinHeight() * sizeMultiplier);
+    }
+
+    private void addPaddings(NinePatchDrawable ninePatchDrawable, float padding) {
+        addPaddings(ninePatchDrawable, padding, padding, padding, padding);
+    }
+
+    private void addPaddings(NinePatchDrawable ninePatchDrawable, float left, float right, float bottom, float top) {
+        ninePatchDrawable.setLeftWidth(left * resolutionHelper.getPositionMultiplier());
+        ninePatchDrawable.setRightWidth(right * resolutionHelper.getPositionMultiplier());
+        ninePatchDrawable.setBottomHeight(bottom * resolutionHelper.getPositionMultiplier());
+        ninePatchDrawable.setTopHeight(top * resolutionHelper.getPositionMultiplier());
     }
 }

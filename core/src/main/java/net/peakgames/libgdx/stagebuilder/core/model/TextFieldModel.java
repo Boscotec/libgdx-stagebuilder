@@ -19,6 +19,7 @@ public class TextFieldModel extends ButtonModel {
 	private boolean password;
 	private String passwordChar = "*";
     private String hint;
+	private String hintColor;
     private float padding;
 	private float leftPadding;
 	private float rightPadding;
@@ -162,7 +163,15 @@ public class TextFieldModel extends ButtonModel {
         this.hint = hint;
     }
 
-    public float getPadding() {
+	public String getHintColor() {
+		return hintColor;
+	}
+
+	public void setHintColor(String hintColor) {
+		this.hintColor = hintColor;
+	}
+
+	public float getPadding() {
         return padding;
     }
 
